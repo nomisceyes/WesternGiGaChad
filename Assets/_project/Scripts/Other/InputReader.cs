@@ -4,10 +4,13 @@ using UnityEngine.InputSystem;
 
 public class InputReader : MonoBehaviour
 {
-    private PlayerControls _playerControls;
+    [SerializeField] private InputActionReference _moveInput;
 
-    public InputAction AimAction;
-    public InputAction ShootAction;
+    private PlayerControls _playerControls;
+    private InputAction AimAction;
+    private InputAction ShootAction;
+
+    public bool AimPressed { get; private set; }
 
     private void Start()
     {
@@ -17,8 +20,13 @@ public class InputReader : MonoBehaviour
         ShootAction = _playerControls.Gameplay.Shoot;
     }
 
-    public bool IsAiming() =>    
-        AimAction.IsPressed();  
+    private void Update()
+    {
+        AimPressed = IsAiming();
+    }
+
+    public bool IsAiming() =>
+        AimAction.IsPressed();
 
     public bool IsShooting() =>
         ShootAction.triggered;

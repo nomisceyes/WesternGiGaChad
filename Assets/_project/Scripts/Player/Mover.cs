@@ -10,6 +10,7 @@ public class Mover : MonoBehaviour
     [SerializeField] private CharacterController _characterController;
     [SerializeField] private Transform _camera;
     [SerializeField] private Transform _yawTarget;
+    [SerializeField] private InputReader _inputReader;
     [SerializeField] private float _speed;
     [SerializeField] private float _backwardSpeed = 3f;
     [SerializeField] private float _acceleration = 10f;
@@ -20,7 +21,6 @@ public class Mover : MonoBehaviour
     private float _currentSpeed;
 
     public float CurrentSpeed => _moveInputer.sqrMagnitude;
-    public bool IsAiming; // Разделить на методы и сделать св-вом (Убрать в другой класс)
 
     private void Start()
     {
@@ -39,7 +39,7 @@ public class Mover : MonoBehaviour
 
         moveDirection.y -= Gravity * Time.deltaTime;
 
-        if (IsAiming)
+        if (_inputReader.AimPressed)
         {
             Vector3 forward = transform.forward;
             Vector3 right = transform.right;
@@ -66,7 +66,7 @@ public class Mover : MonoBehaviour
         
         _characterController.Move(_currentSpeed * Time.deltaTime * moveDirection);
 
-        if (IsAiming)
+        if (_inputReader.AimPressed)
         {
             Vector3 lookDirection = _yawTarget.forward;
             lookDirection.y = 0f;

@@ -3,37 +3,34 @@ using UnityEngine;
 
 public class CameraSwitcher : MonoBehaviour
 {
+    private const int MinCameraPriority = 10;
+    private const int MaxCameraPriority = 20;
+
     [SerializeField] private CinemachineCamera _freelookCamera;
     [SerializeField] private CinemachineCamera _aimCamera;
     [SerializeField] private CinemachineInputAxisController _inputAxisController;
-    [SerializeField] private Camera _mainCamera;
-    [SerializeField] private Mover _player;
-    [SerializeField] private GameObject _crosshairUI; // «¿Ã≈Õ»“‹
     [SerializeField] private CrosshairController _crosshairController;
     [SerializeField] private InputReader _inputReader;
 
+    private CinemachineOrbitalFollow _orbitalFollow;
     private AimCameraController _aimCameraController;
-    private bool _isAiming = false;
 
-    public bool AimPressed;
+    private bool _isAiming = false;
 
     private void Start()
     {
         _aimCameraController = _aimCamera.GetComponent<AimCameraController>();
         _inputAxisController = _freelookCamera.GetComponent<CinemachineInputAxisController>();
+        _orbitalFollow = _freelookCamera.GetComponent<CinemachineOrbitalFollow>();
     }
 
     private void Update()
     {
-        AimPressed = _inputReader.IsAiming();
-
-        _player.IsAiming = AimPressed;
-
-        if(AimPressed && _isAiming == false)
+        if(_inputReader.AimPressed && _isAiming == false) // œÓ‰ÛÏ‡Ú¸
         {
             EnterAimMode();
         }
-        else if(AimPressed == false && _isAiming)
+        else if(_inputReader.AimPressed == false && _isAiming) //
         {
             ExitAimMode();
         }
@@ -45,8 +42,8 @@ public class CameraSwitcher : MonoBehaviour
 
         SnapAimCameraToPlayerForward();
 
-        _aimCamera.Priority = 20;
-        _freelookCamera.Priority = 10;
+        _aimCamera.Priority = MaxCameraPriority;
+        _freelookCamera.Priority = MinCameraPriority;
 
         _inputAxisController.enabled = false;
         _crosshairController.EnableCrosshair();
@@ -58,8 +55,8 @@ public class CameraSwitcher : MonoBehaviour
 
         SnapFreeLookBehindPlayer();
 
-        _aimCamera.Priority = 10;
-        _freelookCamera.Priority = 20;
+        _aimCamera.Priority = MinCameraPriority;
+        _freelookCamera.Priority = MaxCameraPriority;
 
         _inputAxisController.enabled = true;
         _crosshairController.DisableCrosshair();
@@ -67,11 +64,10 @@ public class CameraSwitcher : MonoBehaviour
 
     private void SnapFreeLookBehindPlayer()
     {
-        CinemachineOrbitalFollow orbitalFollow = _freelookCamera.GetComponent<CinemachineOrbitalFollow>();
         Vector3 forward = _aimCamera.transform.forward;
         float angle = Mathf.Atan2(forward.x,forward.z) * Mathf.Rad2Deg;
 
-        orbitalFollow.HorizontalAxis.Value = angle;
+        _orbitalFollow.HorizontalAxis.Value = angle;
     }
 
     private void SnapAimCameraToPlayerForward()

@@ -9,6 +9,7 @@ public class Enemy : MonoBehaviour, IObject<Enemy>
     [SerializeField] private EnemyMover _mover;
 
     public event Action<Enemy> Released;
+    public event Action<Enemy> Died;
 
     public Health Health { get; private set; }
 
@@ -40,6 +41,11 @@ public class Enemy : MonoBehaviour, IObject<Enemy>
         _mover.MoveTo(_player.transform.position);
     }
 
+    public void Warp(Vector3 position)
+    {
+        _mover.WarpTo(position);
+    }
+
     public void TakeDamage(int damage)
     {
         Health.TakeDamage(_popupPoint, damage);
@@ -48,6 +54,7 @@ public class Enemy : MonoBehaviour, IObject<Enemy>
     private void Die()
     {
         Released?.Invoke(this);
+        Died?.Invoke(this);
     }
 
     public void SetPlayerTarget(Player player)

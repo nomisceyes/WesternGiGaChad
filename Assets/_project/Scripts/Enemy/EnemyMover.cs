@@ -9,4 +9,9 @@ public class EnemyMover : MonoBehaviour
     {
         _agent.SetDestination(position);
     }
+
+    public void WarpTo(Vector3 position)
+    {
+        _agent.Warp(position);
+    }
 }

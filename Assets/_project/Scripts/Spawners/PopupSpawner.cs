@@ -3,6 +3,15 @@ using UnityEngine;
 
 public class PopupSpawner : Spawner<DamagePopup>
 {
+    [SerializeField] private float _lifetime;
+
+    private WaitForSeconds _lifetimePopup;
+
+    private void Start()
+    {
+        _lifetimePopup = new(_lifetime);
+    }
+
     public void Create(Transform popupPoint, int damage)
     {
         DamagePopup popup = Pool.Get();
@@ -15,7 +24,7 @@ public class PopupSpawner : Spawner<DamagePopup>
 
     private IEnumerator DestroyDelay(DamagePopup popup)
     {
-        yield return new WaitForSeconds(1f); // Исправить
+        yield return _lifetimePopup;
 
         popup.Release();
     }

@@ -11,22 +11,18 @@ public class DamagePopupAnimation : MonoBehaviour
     [SerializeField] private DamagePopup _damagePopup;
     [SerializeField] private TextMeshPro _text;
 
+    private Color _defaultColor = new(1, 1, 1, 1);
+
     private float time = 0f;
 
-    private void OnEnable()
-    {
-        _damagePopup.AnimPopup += AnimationPopup;
-    }
+    private void OnEnable() =>   
+        _damagePopup.AnimPopup += AnimationPopup;    
 
-    private void OnDisable()
-    {
-        _damagePopup.AnimPopup -= AnimationPopup;
-    }
+    private void OnDisable() =>   
+        _damagePopup.AnimPopup -= AnimationPopup;    
 
-    public void AnimationPopup(Vector3 position)
-    {
-        StartCoroutine(AnimPopup(position));
-    }
+    public void AnimationPopup(Vector3 position) =>    
+        StartCoroutine(AnimPopup(position));   
 
     public IEnumerator AnimPopup(Vector3 position)
     {
@@ -42,6 +38,6 @@ public class DamagePopupAnimation : MonoBehaviour
         }
 
         time = 0f;
-        _text.color = new Color(1, 1, 1, 1);
+        _text.color = _defaultColor;
     }
 }
