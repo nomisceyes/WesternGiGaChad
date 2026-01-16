@@ -2,10 +2,16 @@ using UnityEngine;
 
 public abstract class Weapon : MonoBehaviour
 {
-    [SerializeField] protected InputReader InputReader;
     [SerializeField] protected LayerMask Layers;
     [SerializeField] protected int MinDamage;
-    [SerializeField] protected int MaxDamage;   
+    [SerializeField] protected int MaxDamage;
+
+    protected IInputService _inputService;
+
+    private void Awake()
+    {
+        _inputService = ServiceLocator.Container.Single<IInputService>(); // Убрать
+    }
 
     protected void HitEffect(ParticleSystem hitImpactVFX, Vector3 position, Vector3 normal)
     {
@@ -16,5 +22,5 @@ public abstract class Weapon : MonoBehaviour
         hitImpactVFX.Play();
 
         Destroy(hitEffect.gameObject, hitImpactVFX.main.duration);
-    }   
+    }
 }

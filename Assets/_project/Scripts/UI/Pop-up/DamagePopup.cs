@@ -12,11 +12,10 @@ public class DamagePopup : MonoBehaviour, IObject<DamagePopup>
     public void SetUp(Transform point, int damageAmount)
     {
         _text.text = damageAmount.ToString();
+
         AnimPopup?.Invoke(point.position);
     }
 
-    public void Release()
-    {
-        Released?.Invoke(this);
-    }
+    public void Release() =>    
+        Released?.Invoke(this);    
 }

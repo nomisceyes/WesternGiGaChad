@@ -12,6 +12,7 @@ public class CrosshairController : MonoBehaviour
     {
         Cursor.visible = false;
         Cursor.lockState = CursorLockMode.Locked;
+        _aimCamera = Camera.main;
         DisableCrosshair();
     }
 

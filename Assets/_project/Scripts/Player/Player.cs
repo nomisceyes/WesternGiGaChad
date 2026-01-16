@@ -2,17 +2,15 @@ using UnityEngine;
 
 public class Player : MonoBehaviour
 {
-    public Health Health { get; private set; }
+    [SerializeField] private Health _health;
 
     public bool IsAiming { get; private set; }
 
-    private void Awake()
-    {
-        Health = GetComponent<Health>();
-    }
-
     public void TakeDamage(int damage)
     {
-        Health.TakeDamage(null, damage);
+        _health.TakeDamage(null, damage);
     }
+
+    public bool IsAlive() =>
+        _health.IsAlive;
 }

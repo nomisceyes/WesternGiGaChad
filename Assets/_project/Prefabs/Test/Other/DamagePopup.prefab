@@ -65,7 +65,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+  - {fileID: -6753723746149418804, guid: aef1fbd9d7cbd364886da0436bdc4ac3, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -110,15 +110,15 @@ MonoBehaviour:
       m_Calls: []
   m_text: 100
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: b5eb0cc2289fab14284326eeb574c079, type: 2}
-  m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: aef1fbd9d7cbd364886da0436bdc4ac3, type: 2}
+  m_sharedMaterial: {fileID: -6753723746149418804, guid: aef1fbd9d7cbd364886da0436bdc4ac3, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
   m_fontColor32:
     serializedVersion: 2
-    rgba: 4294967295
-  m_fontColor: {r: 1, g: 1, b: 1, a: 1}
+    rgba: 4278252799
+  m_fontColor: {r: 1, g: 0.9584457, b: 0, a: 1}
   m_enableVertexGradient: 0
   m_colorMode: 3
   m_fontColorGradient:
@@ -179,7 +179,7 @@ MonoBehaviour:
   _SortingLayer: 0
   _SortingLayerID: 0
   _SortingOrder: 0
-  m_hasFontAssetChanged: 1
+  m_hasFontAssetChanged: 0
   m_renderer: {fileID: 346628003113513376}
   m_maskType: 0
 --- !u!114 &1266847929550588458
@@ -195,6 +195,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::DamagePopup
   _text: {fileID: 6634469540493447432}
+  _material: {fileID: 2100000, guid: 001ea67fcc6a2124b8f829ae45121fc6, type: 2}
 --- !u!114 &1911032698064251748
 MonoBehaviour:
   m_ObjectHideFlags: 0

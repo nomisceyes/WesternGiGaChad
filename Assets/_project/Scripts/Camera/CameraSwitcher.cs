@@ -10,12 +10,17 @@ public class CameraSwitcher : MonoBehaviour
     [SerializeField] private CinemachineCamera _aimCamera;
     [SerializeField] private CinemachineInputAxisController _inputAxisController;
     [SerializeField] private CrosshairController _crosshairController;
-    [SerializeField] private InputReader _inputReader;
 
+    private IInputService _inputService;
     private CinemachineOrbitalFollow _orbitalFollow;
     private AimCameraController _aimCameraController;
 
     private bool _isAiming = false;
+
+    private void Awake()
+    {
+        _inputService = ServiceLocator.Container.Single<IInputService>(); // Убрать
+    }
 
     private void Start()
     {
@@ -26,11 +31,11 @@ public class CameraSwitcher : MonoBehaviour
 
     private void Update()
     {
-        if(_inputReader.AimPressed && _isAiming == false) // Подумать
+        if(_inputService.AimPressed && _isAiming == false) // Подумать
         {
             EnterAimMode();
         }
-        else if(_inputReader.AimPressed == false && _isAiming) //
+        else if(_inputService.AimPressed == false && _isAiming) //
         {
             ExitAimMode();
         }

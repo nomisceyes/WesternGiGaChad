@@ -5,7 +5,7 @@ public class PlayerAnimations : MonoBehaviour
     private readonly int Speed = Animator.StringToHash("Speed");
 
     [SerializeField] private Mover _mover;
-    [SerializeField] private InputReader _inputReader;
+    [SerializeField] private InputService _inputReader;
 
     private Animator _animator;
 

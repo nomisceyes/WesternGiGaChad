@@ -27,6 +27,7 @@ public class AimCameraController : MonoBehaviour
 
     private void Update()
     {
+        _pitchTarget.localRotation = Quaternion.Euler(_pitch, 0f, 0f);
         Vector2 look = _lookInput.action.ReadValue<Vector2>();
         look *= _mouseSensitivity;
 
@@ -42,7 +43,6 @@ public class AimCameraController : MonoBehaviour
     public void SetYawPitchFromCameraForward(Transform cameraTransform)
     {
         Vector3 forward = cameraTransform.forward;
-
         Vector3 flatForward = cameraTransform.forward;
         flatForward.y = 0f;
 
@@ -55,6 +55,5 @@ public class AimCameraController : MonoBehaviour
         _pitch = -Mathf.Asin(forward.y) * Mathf.Rad2Deg;
 
         _yawTarget.rotation = Quaternion.Euler(0f, _yaw, 0f);
-        _pitchTarget.localRotation = Quaternion.Euler(_pitch, 0f, 0f);
     }
 }

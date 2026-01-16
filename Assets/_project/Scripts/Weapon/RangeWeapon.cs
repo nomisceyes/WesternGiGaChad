@@ -38,7 +38,7 @@ public class RangeWeapon : Weapon
 
     private void Update()
     {
-        if (InputReader.IsShooting() && InputReader.AimPressed && _currentAmoutBullets > _minAmountAmmo && _isReloading == false && _shootDelay == false)
+        if (_inputService.IsShooting() && _inputService.AimPressed && _currentAmoutBullets > _minAmountAmmo && _isReloading == false && _shootDelay == false)
         {
             StartCoroutine(Shoot());
         }
