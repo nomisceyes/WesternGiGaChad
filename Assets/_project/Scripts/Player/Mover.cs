@@ -16,14 +16,18 @@ public class Mover : MonoBehaviour
 
     private IInputService _inputService;
 
-    private Vector2 _moveInputer;
+    private Vector2 _moveInput;
     private float _currentSpeed;
 
-    public float CurrentSpeed => _moveInputer.sqrMagnitude;
+    public float CurrentSpeed => _moveInput.sqrMagnitude;
 
-    private void Awake()
+    [Inject]
+    public void Construct(IInputService inputService)
     {
-        _inputService = ServiceLocator.GetService<IInputService>();
+        if(inputService != null)
+            Debug.Log("Я тута");
+        
+        _inputService = inputService;
     }
 
     private void Update() =>
@@ -31,7 +35,7 @@ public class Mover : MonoBehaviour
 
     private void Move()
     {
-        _moveInputer = _inputService.GetMoveInput();
+        _moveInput = _inputService.GetMoveInput();
         Vector3 moveDirection = Vector3.zero;
         float targetSpeed = moveDirection.z < 0 ? _backwardSpeed : _speed;
         _currentSpeed = Mathf.Lerp(_currentSpeed, targetSpeed, _acceleration * Time.deltaTime);
@@ -48,7 +52,7 @@ public class Mover : MonoBehaviour
             forward.Normalize();
             right.Normalize();
 
-            moveDirection = forward * _moveInputer.y + right * _moveInputer.x;
+            moveDirection = forward * _moveInput.y + right * _moveInput.x;
         }
         else
         {
@@ -60,7 +64,7 @@ public class Mover : MonoBehaviour
             forward.Normalize();
             right.Normalize();
 
-            moveDirection = forward * _moveInputer.y + right * _moveInputer.x;
+            moveDirection = forward * _moveInput.y + right * _moveInput.x;
         }
 
         _characterController.Move(_currentSpeed * Time.deltaTime * moveDirection);

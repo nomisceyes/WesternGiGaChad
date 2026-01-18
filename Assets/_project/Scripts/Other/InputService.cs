@@ -12,9 +12,11 @@ public class InputService : IInputService, IDisposable
     private Vector2 _currentMoveInput;
     
     public bool AimPressed { get; private set; }
-
+    
     public InputService()
     {
+        Debug.Log("Input Service Init");
+        
         _playerControls = new PlayerControls();
 
         Enable();

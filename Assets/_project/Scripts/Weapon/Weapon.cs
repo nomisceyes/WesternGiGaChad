@@ -8,9 +8,10 @@ public abstract class Weapon : MonoBehaviour
 
     protected IInputService inputService;
 
-    private void Awake()
+    [Inject]
+    public void Construct(IInputService inputService)
     {
-        inputService = ServiceLocator.GetService<IInputService>();
+        this.inputService = inputService;
     }
 
     protected void HitEffect(ParticleSystem hitImpactVFX, Vector3 position, Vector3 normal)

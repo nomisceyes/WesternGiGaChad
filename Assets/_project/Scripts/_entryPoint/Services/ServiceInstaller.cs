@@ -7,7 +7,9 @@ public class ServiceInstaller : MonoBehaviour
 
     private void Awake()
     {
-        ServiceLocator.AddService<IAssetProvider>(new AssetProvider());
-        ServiceLocator.AddService<IInputService>(new InputService());
+        Debug.Log("<color=#0CFF00>Service instantiated!</color>");
+        
+        // ServiceLocator.AddService<IAssetProvider>(_assetProvider);
+        // ServiceLocator.AddService<IInputService>(_inputService);
     }
 }

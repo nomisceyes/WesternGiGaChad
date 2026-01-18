@@ -16,10 +16,11 @@ public class CameraSwitcher : MonoBehaviour
     private AimCameraController _aimCameraController;
 
     private bool _isAiming = false;
-
-    private void Awake()
+    
+    [Inject]
+    public void Construct(IInputService inputService)
     {
-        _inputService = ServiceLocator.GetService<IInputService>();
+        _inputService = inputService;
     }
 
     private void Start()
