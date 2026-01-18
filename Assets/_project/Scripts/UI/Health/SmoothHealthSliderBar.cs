@@ -25,7 +25,7 @@ public class SmoothHealthSliderBar : HealthSliderBar
 
     private IEnumerator SmoothFill()
     {
-        while (Slider.value != Health.CurrentAmount)
+        while (Mathf.Approximately(Slider.value, Health.CurrentAmount) == false)
         {
             Slider.value = Mathf.MoveTowards(Slider.value, Health.CurrentAmount, _fillingSpeed * Time.deltaTime);
 

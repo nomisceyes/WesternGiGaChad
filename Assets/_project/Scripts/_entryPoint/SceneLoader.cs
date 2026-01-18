@@ -7,15 +7,15 @@ public class SceneLoader
 {
     private readonly ICoroutineRunner _coroutineRunner;
 
-    public SceneLoader(ICoroutineRunner coroutineRunner) =>  
-        _coroutineRunner = coroutineRunner;    
+    public SceneLoader(ICoroutineRunner coroutineRunner) =>
+        _coroutineRunner = coroutineRunner;
 
-    public void Load(string name, Action onLoaded = null) =>    
-        _coroutineRunner.StartRoutine(LoadScene(name, onLoaded));   
+    public void Load(string name, Action onLoaded = null) =>
+        _coroutineRunner.StartRoutine(LoadScene(name, onLoaded));
 
     private IEnumerator LoadScene(string nextScene, Action onLoaded = null)
     {
-        if(SceneManager.GetActiveScene().name == nextScene)
+        if (SceneManager.GetActiveScene().name == nextScene)
         {
             onLoaded?.Invoke();
             yield break;
@@ -23,7 +23,7 @@ public class SceneLoader
 
         AsyncOperation waitNextScene = SceneManager.LoadSceneAsync(nextScene);
 
-        while (waitNextScene.isDone == false)
+        while (waitNextScene is { isDone: false })
             yield return null;
 
         onLoaded?.Invoke();

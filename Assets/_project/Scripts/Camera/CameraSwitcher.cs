@@ -19,7 +19,7 @@ public class CameraSwitcher : MonoBehaviour
 
     private void Awake()
     {
-        _inputService = ServiceLocator.Container.Single<IInputService>(); // Убрать
+        _inputService = ServiceLocator.GetService<IInputService>();
     }
 
     private void Start()
@@ -31,13 +31,14 @@ public class CameraSwitcher : MonoBehaviour
 
     private void Update()
     {
-        if(_inputService.AimPressed && _isAiming == false) // Подумать
+        switch (_inputService.AimPressed)
         {
-            EnterAimMode();
-        }
-        else if(_inputService.AimPressed == false && _isAiming) //
-        {
-            ExitAimMode();
+            case true when _isAiming == false:
+                EnterAimMode();
+                break;
+            case false when _isAiming:
+                ExitAimMode();
+                break;
         }
     }
 

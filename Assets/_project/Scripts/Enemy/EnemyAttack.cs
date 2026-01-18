@@ -12,7 +12,7 @@ public class EnemyAttack : MonoBehaviour
 
     private void Start()
     {
-        _delay = new(_attackDelay);
+        _delay = new WaitForSeconds(_attackDelay);
     }
 
     private void OnTriggerStay(Collider other)

@@ -23,7 +23,7 @@ public class Mover : MonoBehaviour
 
     private void Awake()
     {
-        _inputService = ServiceLocator.Container.Single<IInputService>();
+        _inputService = ServiceLocator.GetService<IInputService>();
     }
 
     private void Update() =>
@@ -61,8 +61,8 @@ public class Mover : MonoBehaviour
             right.Normalize();
 
             moveDirection = forward * _moveInputer.y + right * _moveInputer.x;
-        }          
-        
+        }
+
         _characterController.Move(_currentSpeed * Time.deltaTime * moveDirection);
 
         if (_inputService.AimPressed)
@@ -76,7 +76,7 @@ public class Mover : MonoBehaviour
                 transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, Time.deltaTime * 10f);
             }
         }
-        else if(_shouldFaceMoveDirection && moveDirection.sqrMagnitude > 0.001f)
+        else if (_shouldFaceMoveDirection && moveDirection.sqrMagnitude > 0.001f)
         {
             RotateTowardsMovement(moveDirection);
         }

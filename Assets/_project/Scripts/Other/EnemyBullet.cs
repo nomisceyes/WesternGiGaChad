@@ -28,7 +28,7 @@ public class EnemyBullet : MonoBehaviour, IObject<EnemyBullet>
 
     private IEnumerator DestroyAfterLifetime()
     {
-        WaitForSeconds wait = new(_lifetime);
+        WaitForSeconds wait = new WaitForSeconds(_lifetime);
 
         yield return wait;
 

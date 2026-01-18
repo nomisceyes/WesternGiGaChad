@@ -21,7 +21,7 @@ public class LoadingCurtain : MonoBehaviour
 
     private IEnumerator FadeIn()
     {
-        while(Curtain.alpha > 0f)         
+        while (Curtain.alpha > 0f)
         {
             Curtain.alpha -= 0.03f;
             yield return new WaitForSeconds(0.03f);

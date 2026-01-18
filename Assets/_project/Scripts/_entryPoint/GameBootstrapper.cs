@@ -4,20 +4,27 @@ using UnityEngine;
 
 public class GameBootstrapper : MonoBehaviour, ICoroutineRunner
 {
-    public LoadingCurtain Curtain;
-
-    private Game _game;
+    //public LoadingCurtain Curtain;
+    [SerializeField] private Transform _playerSpawnPoint;
+    
+    
+    private IAssetProvider _assetProvider;
     private IInputService _inputService;
 
     private void Awake()
     {
-        _game = new(this, Curtain);
-        _game.StateMachine.Enter<BootstrapState>();
+        //_game = new Game(this, Curtain);
 
         Debug.Log("Save InputSystem");
-        _inputService = ServiceLocator.Container.Single<IInputService>();
+        _inputService = ServiceLocator.GetService<IInputService>();
+        _assetProvider = ServiceLocator.GetService<IAssetProvider>();
 
         DontDestroyOnLoad(this);
+    }
+
+    private void Start()
+    {
+        _assetProvider.Instantiate(AssetPath.HeroPath, at: _playerSpawnPoint.position);
     }
 
     private void Update()

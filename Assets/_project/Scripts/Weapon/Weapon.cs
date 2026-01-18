@@ -3,14 +3,14 @@ using UnityEngine;
 public abstract class Weapon : MonoBehaviour
 {
     [SerializeField] protected LayerMask Layers;
-    [SerializeField] protected int MinDamage;
-    [SerializeField] protected int MaxDamage;
+    [SerializeField] protected int minDamage;
+    [SerializeField] protected int maxDamage;
 
-    protected IInputService _inputService;
+    protected IInputService inputService;
 
     private void Awake()
     {
-        _inputService = ServiceLocator.Container.Single<IInputService>(); // Убрать
+        inputService = ServiceLocator.GetService<IInputService>();
     }
 
     protected void HitEffect(ParticleSystem hitImpactVFX, Vector3 position, Vector3 normal)

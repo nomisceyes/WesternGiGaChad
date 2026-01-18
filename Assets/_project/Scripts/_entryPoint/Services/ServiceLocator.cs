@@ -1,16 +1,13 @@
-﻿public class ServiceLocator
+﻿using System;
+using System.Collections.Generic;
+
+public static class ServiceLocator
 {
-    private static ServiceLocator _instance;
-    public static ServiceLocator Container => _instance ??= new ServiceLocator();
+    private static readonly Dictionary<Type, object> Services = new();
 
-    public void RegisterSingle<TService>(TService implemetation) where TService : IService =>   
-        Implementation<TService>.ServiceInstance = implemetation;   
+    public static void AddService<TService>(object service) =>
+        Services[typeof(TService)] = service;
 
-    public TService Single<TService>() where TService : IService =>   
-        Implementation<TService>.ServiceInstance;
-
-    private static class Implementation<TService> where TService : IService
-    {
-        public static TService ServiceInstance;
-    }
+    public static TService GetService<TService>() where TService : class =>
+        Services[typeof(TService)] as TService;
 }

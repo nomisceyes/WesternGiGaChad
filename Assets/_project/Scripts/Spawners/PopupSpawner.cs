@@ -7,13 +7,13 @@ public class PopupSpawner : Spawner<DamagePopup>
 
     private WaitForSeconds _lifetimePopup;
 
-    private void Start() =>    
-        _lifetimePopup = new(_lifetime);    
+    private void Start() =>
+        _lifetimePopup = new WaitForSeconds(_lifetime);
 
     public void Create(Transform popupPoint, int damage)
     {
         DamagePopup popup = Pool.Get();
-       
+
         popup.transform.position = popupPoint.position;
         popup.SetUp(popupPoint, damage);
 

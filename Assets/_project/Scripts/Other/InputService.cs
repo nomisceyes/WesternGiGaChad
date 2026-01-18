@@ -9,8 +9,8 @@ public class InputService : IInputService, IDisposable
     private InputAction _moveAction;
     private InputAction _aimAction;
     private InputAction _shootAction;
-
-    public Vector2 CurrentMoveInput { get; private set; }
+    private Vector2 _currentMoveInput;
+    
     public bool AimPressed { get; private set; }
 
     public InputService()
@@ -30,12 +30,12 @@ public class InputService : IInputService, IDisposable
 
     public void Update()
     {
-        CurrentMoveInput = _moveAction.ReadValue<Vector2>();
+        _currentMoveInput = _moveAction.ReadValue<Vector2>();
         AimPressed = _aimAction.IsPressed();
     }
 
     public Vector2 GetMoveInput() =>
-        CurrentMoveInput;
+        _currentMoveInput;
 
     public bool IsAiming() =>
         _aimAction.IsPressed();

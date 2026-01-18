@@ -18,7 +18,7 @@ public class CrosshairController : MonoBehaviour
 
     private void LateUpdate()
     {
-        Vector3 screenCenter = new (Screen.width / 2f, Screen.height / 2f, 0f);
+        Vector3 screenCenter = new Vector3(Screen.width / 2f, Screen.height / 2f, 0f);
         Ray ray = _aimCamera.ScreenPointToRay(screenCenter);
         Vector3 targetPosition;
 

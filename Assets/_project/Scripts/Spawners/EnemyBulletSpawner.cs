@@ -11,7 +11,7 @@ public class EnemyBulletSpawner : Spawner<EnemyBullet>
     private bool _isCharged = true;
 
     private void Start() =>
-        TimeOfReload = new(_timeOfReload);
+        TimeOfReload = new WaitForSeconds(_timeOfReload);
 
     public void Shoot()
     {

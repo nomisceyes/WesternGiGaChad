@@ -1,4 +1,4 @@
 public interface IStateUpdater
 {
-    public void Update();  
+    public void Update();
 }

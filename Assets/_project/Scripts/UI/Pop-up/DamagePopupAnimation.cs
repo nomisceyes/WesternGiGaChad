@@ -11,7 +11,7 @@ public class DamagePopupAnimation : MonoBehaviour
     [SerializeField] private DamagePopup _damagePopup;
     [SerializeField] private TextMeshPro _text;
 
-    private Color _defaultColor = new(1, 1, 1, 1);
+    private Color _defaultColor = new Color(1, 1, 1, 1);
 
     private float time = 0f;
 

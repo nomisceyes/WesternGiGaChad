@@ -2,10 +2,11 @@ using System;
 using System.Collections;
 using Unity.Cinemachine;
 using UnityEngine;
+using Random = UnityEngine.Random;
 
 public class RangeWeapon : Weapon
 {
-    private const int _minAmountAmmo = 0;
+    private const int MinAmountAmmo = 0;
 
     [SerializeField] private AudioSource _shootSound;
     [SerializeField] private AudioSource _reloadSound;
@@ -32,13 +33,13 @@ public class RangeWeapon : Weapon
     {
         _currentAmoutBullets = _maxAmountBullets;
 
-        _shootDelayTime = new(_timeBetweenShoot);
-        _reloadDelayTime = new(_reloadTime);
+        _shootDelayTime = new WaitForSeconds(_timeBetweenShoot);
+        _reloadDelayTime = new WaitForSeconds(_reloadTime);
     }
 
     private void Update()
     {
-        if (_inputService.IsShooting() && _inputService.AimPressed && _currentAmoutBullets > _minAmountAmmo && _isReloading == false && _shootDelay == false)
+        if (inputService.IsShooting() && inputService.AimPressed && _currentAmoutBullets > MinAmountAmmo && _isReloading == false && _shootDelay == false)
         {
             StartCoroutine(Shoot());
         }
@@ -63,12 +64,12 @@ public class RangeWeapon : Weapon
         {
             if (hit.collider.TryGetComponent(out Enemy enemy))
             {
-                int damage = UnityEngine.Random.Range(MinDamage, MaxDamage + 1);
+                int damage = Random.Range(minDamage, maxDamage + 1);
 
                 enemy.TakeDamage(damage);
             }
 
-            HitEffect(_hitImpactVFX, hit.point, hit.normal); // Сделать разные эффекты           
+            HitEffect(_hitImpactVFX, hit.point, hit.normal);    
         }
 
         yield return _shootDelayTime;

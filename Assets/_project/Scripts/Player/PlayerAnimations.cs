@@ -2,14 +2,12 @@ using UnityEngine;
 
 public class PlayerAnimations : MonoBehaviour
 {
-    private readonly int Speed = Animator.StringToHash("Speed");
+    private readonly int _speed = Animator.StringToHash("Speed");
 
     [SerializeField] private Mover _mover;
     [SerializeField] private InputService _inputReader;
 
     private Animator _animator;
-
-    public bool A = true;
 
     private void Awake()
     {
@@ -19,12 +17,10 @@ public class PlayerAnimations : MonoBehaviour
     private void Update()
     {
         Move();
-
-        _animator.SetBool("Aiming", A);
     }
 
     private void Move()
     {
-        _animator.SetFloat(Speed, _mover.CurrentSpeed);
+        _animator.SetFloat(_speed, _mover.CurrentSpeed);
     }
 }

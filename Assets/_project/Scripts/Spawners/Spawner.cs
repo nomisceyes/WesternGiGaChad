@@ -3,7 +3,7 @@ using UnityEngine.Pool;
 
 public class Spawner<TObject> : MonoBehaviour where TObject : MonoBehaviour, IObject<TObject>
 {
-    [SerializeField] private TObject[] Prefabs;
+    [SerializeField] private TObject[] _prefabs;
     [SerializeField] private int _poolCapacity;
     [SerializeField] private int _maxPoolSize;
 
@@ -12,11 +12,11 @@ public class Spawner<TObject> : MonoBehaviour where TObject : MonoBehaviour, IOb
     private void Awake()
     {
         Pool = new ObjectPool<TObject>(
-             createFunc: () => CreatePrefab(),              
-              actionOnGet: (@object) => SetUpObject(@object),
-              actionOnRelease: (@object) => ResetObject(@object),
-              defaultCapacity: _poolCapacity,
-              maxSize: _maxPoolSize);
+            createFunc: CreatePrefab,
+            actionOnGet: SetUpObject,
+            actionOnRelease: ResetObject,
+            defaultCapacity: _poolCapacity,
+            maxSize: _maxPoolSize);
     }
 
     public virtual void Release(TObject @object) =>
@@ -24,8 +24,8 @@ public class Spawner<TObject> : MonoBehaviour where TObject : MonoBehaviour, IOb
 
     protected virtual TObject CreatePrefab()
     {
-        int index = Random.Range(0, Prefabs.Length);
-        return Instantiate(Prefabs[index], transform, true);
+        int index = Random.Range(0, _prefabs.Length);
+        return Instantiate(_prefabs[index], transform, true);
     }
 
     protected virtual void ResetObject(TObject @object)

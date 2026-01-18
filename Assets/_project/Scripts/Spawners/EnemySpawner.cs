@@ -3,14 +3,14 @@ using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
+using Random = UnityEngine.Random;
 
 public class EnemySpawner : Spawner<Enemy>
 {
-    private readonly List<Enemy> _enemies = new();
+    private readonly List<Enemy> _enemies = new List<Enemy>();
 
     [SerializeField] private TextMeshProUGUI _victoryText;
     [SerializeField] private TextMeshProUGUI _prepareText;
-
 
     [SerializeField] private List<BoxCollider> _spawnAreas;
     [SerializeField] private Transform _testPoint;
@@ -45,7 +45,7 @@ public class EnemySpawner : Spawner<Enemy>
 
         yield return new WaitForSeconds(3f);
 
-        _victoryText.gameObject.SetActive(false);       
+        _victoryText.gameObject.SetActive(false);
 
         yield return new WaitForSeconds(1f);
 
@@ -66,7 +66,7 @@ public class EnemySpawner : Spawner<Enemy>
         Debug.Log("1");
 
         yield return new WaitForSeconds(0.5f);
-       
+
         _currentWave++;
 
         if (_currentWave < _wavesAmount)
@@ -115,14 +115,14 @@ public class EnemySpawner : Spawner<Enemy>
 
     private Vector3 GetRandomPointInCollider()
     {
-        int index = UnityEngine.Random.Range(0, _spawnAreas.Count);
+        int index = Random.Range(0, _spawnAreas.Count);
 
         Vector3 center = _spawnAreas[index].bounds.center;
         Vector3 size = _spawnAreas[index].bounds.size;
 
-        float randomX = UnityEngine.Random.Range(center.x - size.x / 2, center.x + size.x / 2);
-        float randomY = UnityEngine.Random.Range(center.y - size.y / 2, center.y + size.y / 2);
-        float randomZ = UnityEngine.Random.Range(center.z - size.z / 2, center.z + size.z / 2);
+        float randomX = Random.Range(center.x - size.x / 2, center.x + size.x / 2);
+        float randomY = Random.Range(center.y - size.y / 2, center.y + size.y / 2);
+        float randomZ = Random.Range(center.z - size.z / 2, center.z + size.z / 2);
 
         return new Vector3(randomX, randomY, randomZ);
     }
