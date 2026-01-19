@@ -485,9 +485,8 @@ GameObject:
   - component: {fileID: 6699705112625695173}
   - component: {fileID: 8407848691225090695}
   - component: {fileID: 635544344345455240}
-  - component: {fileID: 4826151484028544398}
-  - component: {fileID: 7109250148089707488}
   - component: {fileID: 6071493341043191509}
+  - component: {fileID: 2829076332652302717}
   m_Layer: 3
   m_Name: Player
   m_TagString: Untagged
@@ -631,41 +630,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 95e02047ea6cce2498bfe6f69e6a1e8d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Player
-  _health: {fileID: 4826151484028544398}
---- !u!114 &4826151484028544398
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3756166988696500147}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 21f4b1c449b14e848b2433eb48421edd, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::Health
-  <MaxAmount>k__BackingField: 100000
-  <CurrentAmount>k__BackingField: 0
---- !u!114 &7109250148089707488
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3756166988696500147}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b6915b8ed18c5f54799a7a804faac0f2, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::Mover
   _characterController: {fileID: 8407848691225090695}
   _camera: {fileID: 7069696324768733488}
-  _yawTarget: {fileID: 6772472876374103198}
-  _speed: 5
-  _backwardSpeed: 3
-  _acceleration: 10
-  _rotationSpeed: 10
-  _shouldFaceMoveDirection: 1
+  _yawCamera: {fileID: 7127134309710802822}
+  _playerMoverStats: {fileID: 11400000, guid: 55cf6a6d88ff64845bf9fe5b936b4a4e, type: 2}
 --- !u!114 &6071493341043191509
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -696,6 +664,20 @@ MonoBehaviour:
   m_DefaultActionMap: Gameplay
   m_SplitScreenIndex: -1
   m_Camera: {fileID: 0}
+--- !u!114 &2829076332652302717
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3756166988696500147}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 21f4b1c449b14e848b2433eb48421edd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Health
+  <MaxHealth>k__BackingField: 0
+  <CurrentHealth>k__BackingField: 1000
 --- !u!1 &3978791277515810363
 GameObject:
   m_ObjectHideFlags: 0

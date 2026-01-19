@@ -7,7 +7,7 @@ public class HealthSliderBar : HealthBar
 
     private void Awake()
     {
-        Slider.maxValue = Health.MaxAmount;
+        Slider.maxValue = Health.MaxHealth;
 
         Slider.SetValueWithoutNotify(Slider.maxValue);
     }
@@ -20,7 +20,7 @@ public class HealthSliderBar : HealthBar
         }
         else
         {
-            Slider.value = Health.CurrentAmount;
+            Slider.value = Health.CurrentHealth;
             Slider.gameObject.SetActive(true);
         }
     }

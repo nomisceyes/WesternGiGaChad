@@ -9,8 +9,6 @@ public class DIContainer : MonoBehaviour
     [SerializeField] private MonoBehaviour[] _monoBehaviour;
 
     private readonly Dictionary<Type, object> _services = new();
-    
-    private IInputService _inputService;
 
     private void Awake()
     {
@@ -30,8 +28,6 @@ public class DIContainer : MonoBehaviour
 
     private void RegisterServices()
     {
-        //ServiceLocator.AddService<IInputService>(_inputService = new InputService()); 
-
         _services[typeof(IInputService)] = new InputService();
         
     }
@@ -68,8 +64,6 @@ public class DIContainer : MonoBehaviour
                     Debug.LogError($"Service {paramType} not found for {type.Name}");
                     args[i] = null;
                 }
-                // var arg = ServiceLocator.GetService(argType);
-                // args[i] = arg;
             }
 
             methodInfo.Invoke(monoBehaviour, args);
