@@ -2,13 +2,7 @@ using UnityEngine;
 
 public abstract class HealthBar : MonoBehaviour, IHealthObserver
 {
-    protected Health Health;
-    
-    [Inject]
-    public void Construct(Health health)
-    {
-        Health = health;
-    }
+    [SerializeField] protected Health Health;
     
     private void OnEnable()
     {

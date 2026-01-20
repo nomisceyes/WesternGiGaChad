@@ -17,4 +17,4 @@ MonoBehaviour:
   BackwardSpeed: 3
   Acceleration: 10
   RotationSpeed: 10
-  ShouldFaceMoveDirection: 0
+  ShouldFaceMoveDirection: 1

@@ -7,7 +7,7 @@ public class DIContainer : MonoBehaviour
 {
     [Header("Components for injection")]
     [SerializeField] private MonoBehaviour[] _monoBehaviour;
-
+    
     private readonly Dictionary<Type, object> _services = new();
 
     private void Awake()
@@ -29,7 +29,6 @@ public class DIContainer : MonoBehaviour
     private void RegisterServices()
     {
         _services[typeof(IInputService)] = new InputService();
-        
     }
     
     private void Inject(MonoBehaviour monoBehaviour)

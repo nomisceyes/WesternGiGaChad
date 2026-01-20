@@ -12,7 +12,7 @@ public class Health : MonoBehaviour
     [field: SerializeField] public int MaxHealth {get; private set;}
     [field: SerializeField] public int CurrentHealth {get ; private set;}
 
-    public bool IsAlive { get; private set; }
+    public bool IsAlive { get; private set; } = true;
     
     private void Awake() =>
         CurrentHealth = MaxHealth;

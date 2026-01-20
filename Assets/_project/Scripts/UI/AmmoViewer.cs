@@ -1,17 +1,14 @@
-using TMPro;
 using UnityEngine;
 
-public class AmmoViewer : MonoBehaviour
+public class AmmoViewer : ValueDisplay<RangeWeapon>
 {
-    [SerializeField] private TextMeshProUGUI _text;
     [SerializeField] private RangeWeapon _gun;
+    
+    protected override RangeWeapon EventSource => _gun;
+    
+    protected override void Subscribe(RangeWeapon source) =>
+        source.AmmoChanged += UpdateDisplay;
 
-    private void OnEnable() =>   
-        _gun.AmmoChanged += OnAmmoChanged;    
-
-    private void OnDisable() =>   
-        _gun.AmmoChanged -= OnAmmoChanged;   
-
-    public void OnAmmoChanged(int amount, int maxAmount) =>
-        _text.text = ($"{amount} / {maxAmount}");
+    protected override void Unsubscribe(RangeWeapon source) =>
+        source.AmmoChanged -= UpdateDisplay;
 }

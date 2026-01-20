@@ -929,8 +929,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 21f4b1c449b14e848b2433eb48421edd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Health
-  <MaxAmount>k__BackingField: 5
-  <CurrentAmount>k__BackingField: 0
+  <MaxHealth>k__BackingField: 10
+  <CurrentHealth>k__BackingField: 0
 --- !u!1 &4625186551929936390
 GameObject:
   m_ObjectHideFlags: 0

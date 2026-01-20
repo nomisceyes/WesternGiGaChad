@@ -23,7 +23,7 @@ public class RangeWeapon : Weapon
     private WaitForSeconds _shootDelayTime;
     private WaitForSeconds _reloadDelayTime;
 
-    private int _currentAmoutBullets;
+    private int _currentAmountBullets;
     private bool _isReloading = false;
     private bool _shootDelay = false;
 
@@ -31,7 +31,7 @@ public class RangeWeapon : Weapon
 
     private void Start()
     {
-        _currentAmoutBullets = _maxAmountBullets;
+        _currentAmountBullets = _maxAmountBullets;
 
         _shootDelayTime = new WaitForSeconds(_timeBetweenShoot);
         _reloadDelayTime = new WaitForSeconds(_reloadTime);
@@ -39,12 +39,12 @@ public class RangeWeapon : Weapon
 
     private void Update()
     {
-        if (inputService.IsShooting() && inputService.AimPressed && _currentAmoutBullets > MinAmountAmmo && _isReloading == false && _shootDelay == false)
+        if (inputService.IsShooting() && inputService.AimPressed && _currentAmountBullets > MinAmountAmmo && _isReloading == false && _shootDelay == false)
         {
             StartCoroutine(Shoot());
         }
 
-        if (_currentAmoutBullets == 0 && _isReloading == false)
+        if (_currentAmountBullets == 0 && _isReloading == false)
         {
             StartCoroutine(Reload());
         }
@@ -57,8 +57,8 @@ public class RangeWeapon : Weapon
         _shootSound.Play();
         _shootVFX.Play();
 
-        _currentAmoutBullets--;
-        AmmoChanged?.Invoke(_currentAmoutBullets, _maxAmountBullets);
+        _currentAmountBullets--;
+        AmmoChanged?.Invoke(_currentAmountBullets, _maxAmountBullets);
 
         if (Physics.Raycast(_aimCamera.transform.position, _aimCamera.transform.forward, out RaycastHit hit, _maxShootDistance, Layers))
         {
@@ -84,8 +84,8 @@ public class RangeWeapon : Weapon
 
         yield return _reloadDelayTime;
 
-        _currentAmoutBullets = _maxAmountBullets;
-        AmmoChanged?.Invoke(_currentAmoutBullets, _maxAmountBullets);
+        _currentAmountBullets = _maxAmountBullets;
+        AmmoChanged?.Invoke(_currentAmountBullets, _maxAmountBullets);
 
         _isReloading = false;
     }

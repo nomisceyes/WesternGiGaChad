@@ -496,8 +496,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 21f4b1c449b14e848b2433eb48421edd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Health
-  <MaxAmount>k__BackingField: 10
-  <CurrentAmount>k__BackingField: 0
+  <MaxHealth>k__BackingField: 10
+  <CurrentHealth>k__BackingField: 0
 --- !u!114 &7763910705273131698
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -539,7 +539,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 54b783df94b17db439fed6d4f29606b6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::EnemyBulletSpawner
-  Prefabs:
+  _prefabs:
   - {fileID: 1427002199716701023, guid: c5b99fff9697a214f945690b2e08a9ef, type: 3}
   _poolCapacity: 10
   _maxPoolSize: 10

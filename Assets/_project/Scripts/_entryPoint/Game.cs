@@ -1,8 +1,6 @@
-using System;
-using System.Collections;
 using UnityEngine;
 
-public class GameBootstrapper : MonoBehaviour, ICoroutineRunner
+public class Game : MonoBehaviour
 {
     private IAssetProvider _assetProvider;
     private IInputService _inputService;
@@ -22,13 +20,4 @@ public class GameBootstrapper : MonoBehaviour, ICoroutineRunner
     {
         _inputService?.Update();
     }
-
-    private void OnDestroy()
-    {
-        if (_inputService is IDisposable disposable)
-            disposable.Dispose();
-    }
-
-    public Coroutine StartRoutine(IEnumerator coroutine) =>
-         StartCoroutine(coroutine);
 }
