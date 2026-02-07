@@ -12,9 +12,7 @@ public class RangeWeapon : Weapon
     [SerializeField] private AudioSource _reloadSound;
     [SerializeField] private ParticleSystem _shootVFX;
     [SerializeField] private ParticleSystem _hitImpactVFX;
-
     [SerializeField] private CinemachineCamera _aimCamera;
-
     [SerializeField] private int _maxAmountBullets = 5;
     [SerializeField] private int _maxShootDistance = 300;
     [SerializeField] private float _timeBetweenShoot = 0.3f;
@@ -37,19 +35,22 @@ public class RangeWeapon : Weapon
         _reloadDelayTime = new WaitForSeconds(_reloadTime);
     }
 
-    private void Update()
+    public void Shooting()
     {
-        if (inputService.IsShooting() && inputService.AimPressed && _currentAmountBullets > MinAmountAmmo && _isReloading == false && _shootDelay == false)
+        if (_currentAmountBullets > MinAmountAmmo && _isReloading == false && _shootDelay == false)
         {
             StartCoroutine(Shoot());
         }
+    }
 
+    public void Reloading()
+    {
         if (_currentAmountBullets == 0 && _isReloading == false)
         {
             StartCoroutine(Reload());
         }
     }
-
+    
     private IEnumerator Shoot()
     {
         _shootDelay = true;

@@ -2,7 +2,6 @@ using UnityEngine;
 
 public class Game : MonoBehaviour
 {
-    private IAssetProvider _assetProvider;
     private IInputService _inputService;
 
     [Inject]
@@ -18,6 +17,6 @@ public class Game : MonoBehaviour
     
     private void Update()
     {
-        _inputService?.Update();
+        _inputService.Update();
     }
 }

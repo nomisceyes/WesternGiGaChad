@@ -2,7 +2,7 @@ using System;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
-public class InputService : IInputService, IDisposable
+public class InputService : IInputService
 {
     private readonly PlayerControls _playerControls;
 
