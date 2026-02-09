@@ -511,15 +511,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 614c5086b1870f94c8b2c6326db80f13, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::RangeWeapon
-  InputReader: {fileID: 0}
   Layers:
     serializedVersion: 2
     m_Bits: 64
-  MinDamage: 3
-  MaxDamage: 7
+  minDamage: 0
+  maxDamage: 0
   _shootSound: {fileID: 5643109002031122116}
   _reloadSound: {fileID: 2336436616937314901}
-  _shootVFX: {fileID: 0}
+  _shootVFX: {fileID: 5561572031008988506, guid: d12064c6a98874c44b8cf6e845406dc7, type: 3}
   _hitImpactVFX: {fileID: 1885855368129634285, guid: eae2c144e6ce1474bbff4077b08bd33f, type: 3}
   _aimCamera: {fileID: 0}
   _maxAmountBullets: 5

@@ -9,7 +9,7 @@ public class InputService : IInputService
     private InputAction _moveAction;
     private InputAction _aimAction;
     private InputAction _shootAction;
-    private Vector2 _currentMoveInput;
+    private Vector3 _currentMoveInput;
     
     public bool AimPressed { get; private set; }
     
@@ -32,11 +32,11 @@ public class InputService : IInputService
 
     public void Update()
     {
-        _currentMoveInput = _moveAction.ReadValue<Vector2>();
+        _currentMoveInput = _moveAction.ReadValue<Vector3>();
         AimPressed = _aimAction.IsPressed();
     }
 
-    public Vector2 GetMoveInput() =>
+    public Vector3 GetMoveInput() =>
         _currentMoveInput;
 
     public bool IsAiming() =>

@@ -26,16 +26,16 @@ public class Enemy : MonoBehaviour, IObject<Enemy>
 
     private void Update()
     {
-        if (_player.IsAlive())
-        {
-            Move();
-        }
-
-        if (_bulletSpawner != null && BaseCalculations.IsInRange(_player.transform.position, transform.position, _attackRange))
-        {
-            transform.LookAt(_player.transform);
-            _bulletSpawner.Shoot();
-        }
+        // if (_player.IsAlive())
+        // {
+        //     Move();
+        // }
+        //
+        // if (_bulletSpawner != null && BaseCalculations.IsInRange(_player.transform.position, transform.position, _attackRange))
+        // {
+        //     transform.LookAt(_player.transform);
+        //     _bulletSpawner.Shoot();
+        // }
     }
 
     private void Move() =>

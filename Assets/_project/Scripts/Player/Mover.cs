@@ -17,10 +17,11 @@ public class Mover : MonoBehaviour
     
     private IInputService _inputService;
     
-    private Vector2 _moveInput;
+    public Vector3 _moveInput;
     private float _currentSpeed;
 
-    public float CurrentSpeed => _moveInput.sqrMagnitude;
+    public float XSpeed => _moveInput.x;
+    public float YSpeed => _moveInput.y;
     
     [Inject]
     public void Construct(IInputService inputService)

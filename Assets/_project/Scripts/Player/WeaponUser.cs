@@ -4,9 +4,6 @@ public class WeaponUser : MonoBehaviour
 {
     [SerializeField] private RangeWeapon _gun;
 
-    [SerializeField] private Transform _idleGun;
-    [SerializeField] private Transform _aimGun;
-
     private IInputService _inputService;
 
     [Inject]
