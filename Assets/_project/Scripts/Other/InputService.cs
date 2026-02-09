@@ -41,6 +41,9 @@ public class InputService : IInputService
 
     public bool IsAiming() =>
         _aimAction.IsPressed();
+    
+    public bool Aiming() =>
+        _aimAction.triggered;
 
     public bool IsShooting() =>
         _shootAction.triggered;

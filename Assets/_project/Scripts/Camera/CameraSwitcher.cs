@@ -1,11 +1,13 @@
 using Unity.Cinemachine;
 using UnityEngine;
+using UnityEngine.Animations.Rigging;
 
 public class CameraSwitcher : MonoBehaviour
 {
     private const int MinCameraPriority = 10;
     private const int MaxCameraPriority = 20;
 
+    [SerializeField] private Rig _aimRig;
     [SerializeField] private CinemachineCamera _freelookCamera;
     [SerializeField] private CinemachineCamera _aimCamera;
     [SerializeField] private CinemachineInputAxisController _inputAxisController;
@@ -15,8 +17,9 @@ public class CameraSwitcher : MonoBehaviour
     private CinemachineOrbitalFollow _orbitalFollow;
     private AimCameraController _aimCameraController;
 
+    private float _aimRigWeight;
     private bool _isAiming = false;
-    
+
     [Inject]
     public void Construct(IInputService inputService)
     {
@@ -28,6 +31,8 @@ public class CameraSwitcher : MonoBehaviour
         _aimCameraController = _aimCamera.GetComponent<AimCameraController>();
         _inputAxisController = _freelookCamera.GetComponent<CinemachineInputAxisController>();
         _orbitalFollow = _freelookCamera.GetComponent<CinemachineOrbitalFollow>();
+        
+        _aimRig.weight = 0f;
     }
 
     private void Update()
@@ -41,6 +46,8 @@ public class CameraSwitcher : MonoBehaviour
                 ExitAimMode();
                 break;
         }
+        
+       // _aimRig.weight = Mathf.Lerp(_aimRig.weight, _aimRigWeight, Time.deltaTime * 20f);
     }
 
     private void EnterAimMode()
@@ -54,6 +61,10 @@ public class CameraSwitcher : MonoBehaviour
 
         _inputAxisController.enabled = false;
         _crosshairController.EnableCrosshair();
+
+        
+        _aimRig.weight = 1f;
+        //_aimRigWeight = 1f;
     }
 
     private void ExitAimMode()
@@ -67,12 +78,15 @@ public class CameraSwitcher : MonoBehaviour
 
         _inputAxisController.enabled = true;
         _crosshairController.DisableCrosshair();
+
+        _aimRig.weight = 0f;
+        //_aimRigWeight = 0f;
     }
 
     private void SnapFreeLookBehindPlayer()
     {
         Vector3 forward = _aimCamera.transform.forward;
-        float angle = Mathf.Atan2(forward.x,forward.z) * Mathf.Rad2Deg;
+        float angle = Mathf.Atan2(forward.x, forward.z) * Mathf.Rad2Deg;
 
         _orbitalFollow.HorizontalAxis.Value = angle;
     }
