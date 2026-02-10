@@ -14,9 +14,15 @@ public class PlayerAnimations : MonoBehaviour
     [SerializeField] private bool _on;
 
     [SerializeField] private Mover _mover;
+    [SerializeField] private float _smoothTime = 0.1f;
     private IInputService _inputService;
 
     private Animator _animator;
+    
+    private Vector2 _smoothVelocity;
+    private float _currentHorizontalSpeed;
+    private float _currentVerticalSpeed;
+    private float _currentSpeed;
 
     [Inject]
     public void Construct(IInputService inputService)
@@ -38,12 +44,22 @@ public class PlayerAnimations : MonoBehaviour
 
     private void Move()
     {
-        _animator.SetFloat(_horizontalSpeed, _inputService.GetMoveInput().x);
-        _animator.SetFloat(_verticalSpeed, _inputService.GetMoveInput().y);
+        SmoothInput();
         
-        float speed = new Vector2(_inputService.GetMoveInput().x, _inputService.GetMoveInput().y).magnitude;
+        _animator.SetFloat(_horizontalSpeed, _currentHorizontalSpeed);
+        _animator.SetFloat(_verticalSpeed, _currentVerticalSpeed);
+        _animator.SetFloat(_speed, _currentSpeed);
+    }
+
+    private void SmoothInput()
+    {
+        Vector2 rawInput = new Vector2(_inputService.GetMoveInput().x, _inputService.GetMoveInput().y);
+        Vector2 smoothInput = Vector2.SmoothDamp(new Vector2(_currentHorizontalSpeed, _currentVerticalSpeed), rawInput,
+            ref _smoothVelocity, _smoothTime);
         
-        _animator.SetFloat(_speed, speed);
+        _currentHorizontalSpeed = smoothInput.x;
+        _currentVerticalSpeed = smoothInput.y;
+        _currentSpeed = smoothInput.magnitude;
     }
 
     private void Aiming()

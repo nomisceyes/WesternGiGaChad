@@ -1,6 +1,7 @@
 using Unity.Cinemachine;
 using UnityEngine;
 using UnityEngine.Animations.Rigging;
+using UnityEngine.UI;
 
 public class CameraSwitcher : MonoBehaviour
 {
@@ -12,6 +13,7 @@ public class CameraSwitcher : MonoBehaviour
     [SerializeField] private CinemachineCamera _aimCamera;
     [SerializeField] private CinemachineInputAxisController _inputAxisController;
     [SerializeField] private CrosshairController _crosshairController;
+    //[SerializeField] private Image _crosshair;
 
     private IInputService _inputService;
     private CinemachineOrbitalFollow _orbitalFollow;
@@ -60,6 +62,7 @@ public class CameraSwitcher : MonoBehaviour
         _freelookCamera.Priority = MinCameraPriority;
 
         _inputAxisController.enabled = false;
+        //_crosshair.gameObject.SetActive(true);
         _crosshairController.EnableCrosshair();
 
         
@@ -77,6 +80,7 @@ public class CameraSwitcher : MonoBehaviour
         _freelookCamera.Priority = MaxCameraPriority;
 
         _inputAxisController.enabled = true;
+        //_crosshair.gameObject.SetActive(false);
         _crosshairController.DisableCrosshair();
 
         _aimRig.weight = 0f;
