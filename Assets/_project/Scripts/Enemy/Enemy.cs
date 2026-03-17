@@ -3,12 +3,12 @@ using UnityEngine;
 
 public class Enemy : MonoBehaviour, IObject<Enemy>
 {
-    [SerializeField] private Transform _popupPoint;
+    [SerializeField] protected Transform _popupPoint;
     [SerializeField] private EnemyBulletSpawner _bulletSpawner;
     [SerializeField] private EnemyMover _mover;
     [SerializeField] private float _attackRange;
 
-    private Player _player;
+    protected Player _player;
 
     public event Action<Enemy> Released;
     public event Action<Enemy> Died;

@@ -8,8 +8,6 @@ public abstract class Weapon : MonoBehaviour
 
     protected void HitEffect(ParticleSystem hitImpactVFX, Vector3 position, Vector3 normal)
     {
-        Debug.Log("Create HitEffect");
-        
         Vector3 offsetPosition = position + (normal * 0.05f);
 
         ParticleSystem hitEffect = Instantiate(hitImpactVFX, offsetPosition, Quaternion.LookRotation(normal));

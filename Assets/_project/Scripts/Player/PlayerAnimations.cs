@@ -10,15 +10,12 @@ public class PlayerAnimations : MonoBehaviour
     private readonly int _verticalSpeed = Animator.StringToHash("VerticalSpeed");
     private readonly int _aiming = Animator.StringToHash("Aiming");
     private readonly int _shooting = Animator.StringToHash("Shoot");
-
-    [SerializeField] private bool _on;
-
+    
     [SerializeField] private Mover _mover;
     [SerializeField] private float _smoothTime = 0.1f;
-    private IInputService _inputService;
-
-    private Animator _animator;
     
+    private Animator _animator;
+    private IInputService _inputService;
     private Vector2 _smoothVelocity;
     private float _currentHorizontalSpeed;
     private float _currentVerticalSpeed;
