@@ -494,7 +494,7 @@ PrefabInstance:
     - target: {fileID: 6537317783697157744, guid: 3f4b2444902f39f478b86e4f6bb2e20b, type: 3}
       propertyPath: _boss
       value: 
-      objectReference: {fileID: 553857225483860457, guid: 70d52510134769c43bb9fdcb17c8a7c6, type: 3}
+      objectReference: {fileID: 6746268539244735451, guid: c13bc1d4eeb22ff428e44a1ab4e03056, type: 3}
     - target: {fileID: 6537317783697157744, guid: 3f4b2444902f39f478b86e4f6bb2e20b, type: 3}
       propertyPath: _player
       value: 
