@@ -8,10 +8,7 @@ public class Game : MonoBehaviour
     [SerializeField] private Boss _boss;
     [SerializeField] private Transform _bossSpawn;
     [SerializeField] private Player _player;
-
-    [SerializeField] private TextMeshProUGUI _victoryText;
-    [SerializeField] private TextMeshProUGUI _prepareText;
-    [SerializeField] private TextMeshProUGUI _bossText;
+    [SerializeField] private ResoultsHandler _resoultsHandler;
 
     [SerializeField] private int _maxWaveAmount;
 
@@ -41,61 +38,28 @@ public class Game : MonoBehaviour
             if (_bossFight == false)
             {
                 _bossFight = true;
-                StartCoroutine(PrepareToBossFight());
+                CreateBoss();
             }
         }
         else if (_enemySpawner.CurrentEnemies == _enemySpawner.MaxAmountEnemy && _enemySpawner.Enemies.Count == 0)
         {
             if (_prerareToNextWave == false)
-                StartCoroutine(PrepareToNextWaveRoutine());
+                ActiveNextWave();
         }
     }
 
     private void CreateBoss()
     {
+        _resoultsHandler.BossFight();
+
         Boss boss = Instantiate(_boss, _bossSpawn.position, Quaternion.identity);
         boss.SetPlayerTarget(_player);
     }
 
-    private IEnumerator PrepareToBossFight()
+
+    private void ActiveNextWave()
     {
-        _bossText.gameObject.SetActive(true);
-
-        yield return new WaitForSeconds(1f);
-
-        _bossText.gameObject.SetActive(false);
-
-        CreateBoss();
-    }
-
-    private IEnumerator PrepareToNextWaveRoutine()
-    {
-        _victoryText.gameObject.SetActive(true);
-        _prerareToNextWave = true;
-
-        yield return new WaitForSeconds(3f);
-
-        _victoryText.gameObject.SetActive(false);
-
-        yield return new WaitForSeconds(1f);
-
-        _prepareText.gameObject.SetActive(true);
-
-        yield return new WaitForSeconds(1f);
-
-        _prepareText.gameObject.SetActive(false);
-
-        Debug.Log("3");
-
-        yield return new WaitForSeconds(1f);
-
-        Debug.Log("2");
-
-        yield return new WaitForSeconds(1f);
-
-        Debug.Log("1");
-
-        yield return new WaitForSeconds(0.5f);
+        _resoultsHandler.PrepareToNextWave();
 
         _currentWave++;
 

@@ -1959,6 +1959,10 @@ PrefabInstance:
       propertyPath: m_AnchorMax.y
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 1883930983121032304, guid: c3fa34bd6d368224ba21f1ce8006a477, type: 3}
+      propertyPath: m_UpdateWhenOffscreen
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 2901165104249955035, guid: c3fa34bd6d368224ba21f1ce8006a477, type: 3}
       propertyPath: m_LocalPosition.x
       value: 10.88383
@@ -2041,6 +2045,10 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3115160012130647992, guid: c3fa34bd6d368224ba21f1ce8006a477, type: 3}
       propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4150123776810247123, guid: c3fa34bd6d368224ba21f1ce8006a477, type: 3}
+      propertyPath: m_Weight
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4522945510297128131, guid: c3fa34bd6d368224ba21f1ce8006a477, type: 3}

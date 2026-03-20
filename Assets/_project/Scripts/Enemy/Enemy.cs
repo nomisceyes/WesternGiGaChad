@@ -4,9 +4,9 @@ using UnityEngine;
 public class Enemy : MonoBehaviour, IObject<Enemy>
 {
     [SerializeField] protected Transform _popupPoint;
-    [SerializeField] private EnemyBulletSpawner _bulletSpawner;
+    //[SerializeField] private EnemyBulletSpawner _bulletSpawner;
     [SerializeField] private EnemyMover _mover;
-    [SerializeField] private float _attackRange;
+    //[SerializeField] private float _attackRange;
 
     protected Player _player;
 
@@ -31,14 +31,14 @@ public class Enemy : MonoBehaviour, IObject<Enemy>
             Move();
         }
         
-        if (_bulletSpawner != null && BaseCalculations.IsInRange(_player.transform.position, transform.position, _attackRange))
-        {
-            transform.LookAt(_player.transform);
-            _bulletSpawner.Shoot();
-        }
+        // if (_bulletSpawner != null && BaseCalculations.IsInRange(_player.transform.position, transform.position, _attackRange))
+        // {
+        //     transform.LookAt(_player.transform);
+        //     _bulletSpawner.Shoot();
+        // }
     }
 
-    private void Move() =>
+    protected void Move() =>
         _mover.MoveTo(_player.transform.position);
 
     public void SetStartPosition(Vector3 position) =>
@@ -50,7 +50,7 @@ public class Enemy : MonoBehaviour, IObject<Enemy>
     public void SetPlayerTarget(Player player) =>
         _player = player;
 
-    private void Die()
+    protected virtual void Die()
     {
         Released?.Invoke(this);
         Died?.Invoke(this);
