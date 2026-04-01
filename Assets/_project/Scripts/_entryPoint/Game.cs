@@ -1,19 +1,16 @@
-using System.Collections;
-using TMPro;
 using UnityEngine;
 
 public class Game : MonoBehaviour
 {
+    [SerializeField] private BossSpawner _bossSpawner;
     [SerializeField] private EnemySpawner _enemySpawner;
-    [SerializeField] private Boss _boss;
-    [SerializeField] private Transform _bossSpawn;
     [SerializeField] private Player _player;
     [SerializeField] private ResoultsHandler _resoultsHandler;
 
     [SerializeField] private int _maxWaveAmount;
-
+    
     private int _currentWave;
-    private bool _prerareToNextWave = false;
+    private bool _prepareToNextWave = false;
     private bool _bossFight = false;
 
     private IInputService _inputService;
@@ -23,9 +20,11 @@ public class Game : MonoBehaviour
     {
         _inputService = inputService;
     }
-
+    
     private void Awake()
     {
+        _bossSpawner.SetTarget(_player);
+        
         DontDestroyOnLoad(this);
     }
 
@@ -33,29 +32,27 @@ public class Game : MonoBehaviour
     {
         _inputService.Update();
 
+        SwitchGameState();  
+    }
+
+    private void SwitchGameState()
+    {
         if (_currentWave == _maxWaveAmount)
         {
             if (_bossFight == false)
             {
                 _bossFight = true;
-                CreateBoss();
+                  
+                _resoultsHandler.BossFight();
+                _bossSpawner.CreateBoss();
             }
         }
         else if (_enemySpawner.CurrentEnemies == _enemySpawner.MaxAmountEnemy && _enemySpawner.Enemies.Count == 0)
         {
-            if (_prerareToNextWave == false)
+            if (_prepareToNextWave == false)
                 ActiveNextWave();
         }
     }
-
-    private void CreateBoss()
-    {
-        _resoultsHandler.BossFight();
-
-        Boss boss = Instantiate(_boss, _bossSpawn.position, Quaternion.identity);
-        boss.SetPlayerTarget(_player);
-    }
-
 
     private void ActiveNextWave()
     {
@@ -71,6 +68,6 @@ public class Game : MonoBehaviour
             _enemySpawner.Spawn();
         }
 
-        _prerareToNextWave = false;
+        _prepareToNextWave = false;
     }
 }

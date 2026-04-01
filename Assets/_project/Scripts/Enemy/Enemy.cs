@@ -4,9 +4,7 @@ using UnityEngine;
 public class Enemy : MonoBehaviour, IObject<Enemy>
 {
     [SerializeField] protected Transform _popupPoint;
-    //[SerializeField] private EnemyBulletSpawner _bulletSpawner;
     [SerializeField] private EnemyMover _mover;
-    //[SerializeField] private float _attackRange;
 
     protected Player _player;
 
@@ -30,12 +28,6 @@ public class Enemy : MonoBehaviour, IObject<Enemy>
         {
             Move();
         }
-        
-        // if (_bulletSpawner != null && BaseCalculations.IsInRange(_player.transform.position, transform.position, _attackRange))
-        // {
-        //     transform.LookAt(_player.transform);
-        //     _bulletSpawner.Shoot();
-        // }
     }
 
     protected void Move() =>

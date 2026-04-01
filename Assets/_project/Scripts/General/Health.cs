@@ -4,16 +4,16 @@ using UnityEngine;
 public class Health : MonoBehaviour
 {
     private const int MinAmount = 0;
-    
+
     public event Action ValueChanged;
     public event Action<Transform, int> Popup;
     public event Action Died;
 
-    [field: SerializeField] public int MaxHealth {get; private set;}
-    [field: SerializeField] public int CurrentHealth {get ; private set;}
+    [field: SerializeField] public int MaxHealth { get; private set; }
+    [field: SerializeField] public int CurrentHealth { get; private set; }
 
     public bool IsAlive { get; private set; } = true;
-    
+
     private void Awake() =>
         CurrentHealth = MaxHealth;
 
@@ -38,16 +38,21 @@ public class Health : MonoBehaviour
         ValueChanged?.Invoke();
     }
 
-    public void Restore()
+    public void Restore(int value)
     {
         IsAlive = true;
-        CurrentHealth = MaxHealth;
 
-        //CurrentAmount = Mathf.Clamp(CurrentAmount + Mathf.Abs(amount), MinAmount, MaxAmount);
+        CurrentHealth = Mathf.Clamp(CurrentHealth + Mathf.Abs(value), MinAmount, MaxHealth);
 
         ValueChanged?.Invoke();
     }
 
-    //public bool GetPossibleOfHealing() =>
-    //    CurrentAmount < MaxAmount;
-} 
+    public bool GetPossibleOfHealing() =>
+        CurrentHealth < MaxHealth;
+
+    public void Reset()
+    {
+        CurrentHealth = MaxHealth;
+        ValueChanged?.Invoke();
+    }
+}

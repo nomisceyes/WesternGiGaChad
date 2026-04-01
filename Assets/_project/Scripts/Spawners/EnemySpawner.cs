@@ -29,12 +29,10 @@ public class EnemySpawner : Spawner<Enemy>
         {
             Enemy enemy = Pool.Get();
 
-            //enemy.SetStartPosition(_testPoint.position);
-
             enemy.SetStartPosition(GetRandomPointInCollider());           
             enemy.SetPlayerTarget(_player);
             enemy.Health.Popup += _popupSpawner.Create;
-            enemy.Health.Restore();
+            enemy.Health.Reset();
 
             Enemies.Add(enemy);
             CurrentEnemies++;
