@@ -270,6 +270,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 2939076418601739667}
     m_Modifications:
+    - target: {fileID: 244269751657344505, guid: 47e6db6acfd52a349bf0b36259626fc6, type: 3}
+      propertyPath: OutputAudioMixerGroup
+      value: 
+      objectReference: {fileID: -1950074872253343808, guid: 31bf5fb02edc941498258ff3e5d8a4b1, type: 2}
     - target: {fileID: 5493170521278814458, guid: 47e6db6acfd52a349bf0b36259626fc6, type: 3}
       propertyPath: _aimCamera
       value: 
@@ -282,6 +286,10 @@ PrefabInstance:
       propertyPath: _camera
       value: 
       objectReference: {fileID: 6387315244716480913}
+    - target: {fileID: 7881082811870146920, guid: 47e6db6acfd52a349bf0b36259626fc6, type: 3}
+      propertyPath: OutputAudioMixerGroup
+      value: 
+      objectReference: {fileID: -1950074872253343808, guid: 31bf5fb02edc941498258ff3e5d8a4b1, type: 2}
     - target: {fileID: 8715162941433562517, guid: 47e6db6acfd52a349bf0b36259626fc6, type: 3}
       propertyPath: m_LocalPosition.x
       value: -28.8
