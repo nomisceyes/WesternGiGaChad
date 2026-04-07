@@ -33,6 +33,8 @@ public class RangeWeapon : Weapon
 
         _shootDelayTime = new WaitForSeconds(_timeBetweenShoot);
         _reloadDelayTime = new WaitForSeconds(_reloadTime);
+        
+        AmmoChanged?.Invoke(_currentAmountBullets, _maxAmountBullets);
     }
 
     public void Shooting()

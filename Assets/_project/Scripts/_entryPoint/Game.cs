@@ -1,3 +1,4 @@
+using NUnit.Framework;
 using UnityEngine;
 
 public class Game : MonoBehaviour
@@ -6,6 +7,7 @@ public class Game : MonoBehaviour
     [SerializeField] private EnemySpawner _enemySpawner;
     [SerializeField] private Player _player;
     [SerializeField] private ResoultsHandler _resoultsHandler;
+    [SerializeField] private PanelHandler _panelHandler;
 
     [SerializeField] private int _maxWaveAmount;
     
@@ -14,6 +16,8 @@ public class Game : MonoBehaviour
     private bool _bossFight = false;
 
     private IInputService _inputService;
+
+    public bool IsPlaying = true;
 
     [Inject]
     public void Construct(IInputService inputService)
@@ -24,12 +28,24 @@ public class Game : MonoBehaviour
     private void Awake()
     {
         _bossSpawner.SetTarget(_player);
+        IsPlaying = true;
         
         DontDestroyOnLoad(this);
     }
 
     private void Update()
     {
+        if (IsPlaying && Input.GetKeyDown(KeyCode.Escape))
+        {
+            _panelHandler.PauseGame();
+            IsPlaying = false;
+        }
+        else if (IsPlaying == false && Input.GetKeyDown(KeyCode.Escape))
+        {
+            _panelHandler.StartGame();
+            IsPlaying = true;
+        }
+        
         _inputService.Update();
 
         SwitchGameState();  
