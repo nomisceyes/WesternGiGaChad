@@ -5,7 +5,7 @@ public static class ServiceLocator
     public static InputService InputService;
     public static SceneLoader SceneLoader;
     public static AudioManager AudioManager;
-    public static Game Game;
+    public static Game Main;
     
     //public static VFXManager VFXManager;
 }
@@ -26,11 +26,17 @@ public static class Bootstrapper
         
         _serviceHolder = new GameObject("---Services---");
         Object.DontDestroyOnLoad(_serviceHolder);
-        
-        ServiceLocator.Game = Object.FindFirstObjectByType<Game>();
+
         ServiceLocator.InputService = CreateSimpleService<InputService>();
         ServiceLocator.SceneLoader = CreateSimpleService<SceneLoader>();
-        ServiceLocator.AudioManager = CreateSimpleService<AudioManager>();
+        ServiceLocator.AudioManager = CreateSimpleService<AudioManager>(); 
+        ServiceLocator.Main = Object.FindFirstObjectByType<Game>();
+
+        ServiceLocator.SceneLoader.OnLoaded = () =>
+        {
+            ServiceLocator.Main = Object.FindFirstObjectByType<Game>();
+            Debug.Log(ServiceLocator.Main);
+        };
     }
 
     private static T CreateSimpleService<T>() where T : Component, IService

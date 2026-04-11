@@ -7995,7 +7995,7 @@ RectTransform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 833154535}
-  m_Father: {fileID: 0}
+  m_Father: {fileID: 1597823398}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
@@ -23554,6 +23554,7 @@ MonoBehaviour:
   Player: {fileID: 0}
   ResoultsHandler: {fileID: 0}
   PanelHandler: {fileID: 0}
+  PopupSpawner: {fileID: 0}
   _maxWaveAmount: 0
   IsPlaying: 1
 --- !u!4 &1597823398
@@ -23571,6 +23572,7 @@ Transform:
   m_Children:
   - {fileID: 1473929053}
   - {fileID: 44389239}
+  - {fileID: 524855540}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &1604903893
@@ -32006,11 +32008,10 @@ PrefabInstance:
 SceneRoots:
   m_ObjectHideFlags: 0
   m_Roots:
+  - {fileID: 1597823398}
   - {fileID: 1783886767}
   - {fileID: 162777215}
   - {fileID: 964212415}
   - {fileID: 1273766785}
   - {fileID: 2503599179855802982}
-  - {fileID: 524855540}
   - {fileID: 2103629819}
-  - {fileID: 1597823398}

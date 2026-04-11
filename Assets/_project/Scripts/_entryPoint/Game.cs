@@ -7,6 +7,7 @@ public class Game : MonoBehaviour
     [HideInInspector] public Player Player;
     [HideInInspector] public ResoultsHandler ResoultsHandler;
     [HideInInspector] public PanelHandler PanelHandler;
+    [HideInInspector] public PopupSpawner PopupSpawner;
 
     [SerializeField] private int _maxWaveAmount;
 
@@ -20,13 +21,6 @@ public class Game : MonoBehaviour
     {
         IsPlaying = true;
         Init();
-
-        if (Player != null)
-        {
-            EnemySpawner.Spawn();
-
-            Debug.Log("Na meste");
-        }
     }
 
     private void Init()
@@ -36,8 +30,11 @@ public class Game : MonoBehaviour
         EnemySpawner = FindFirstObjectByType<EnemySpawner>();
         ResoultsHandler = FindFirstObjectByType<ResoultsHandler>();
         PanelHandler = FindFirstObjectByType<PanelHandler>();
+        PopupSpawner = FindFirstObjectByType<PopupSpawner>();
 
         ServiceLocator.AudioManager.PlayMusic(Res.Audio.BackgroundMusic);
+        
+        EnemySpawner.Spawn();
     }
 
     private void Update()
@@ -91,7 +88,4 @@ public class Game : MonoBehaviour
 
         _prepareToNextWave = false;
     }
-
-    public Player GetPlayer() =>
-        Player;
 }

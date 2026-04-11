@@ -1,18 +1,23 @@
 using UnityEngine;
 
 public class WeaponUser : MonoBehaviour
-{
-    [SerializeField] private RangeWeapon _gun;
+{ 
+    public RangeWeapon Gun;
+
+    private void Awake()
+    {
+        Gun = GetComponentInChildren<RangeWeapon>();
+    }
     
     private void Update()
     {
         if (ServiceLocator.InputService.CanShoot())
         {
-            _gun.Shooting();
+            Gun.Shooting();
         }
         else
         {
-            _gun.Reloading();
+            Gun.Reloading();
         }
     }
 }

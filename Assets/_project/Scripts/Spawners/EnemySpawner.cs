@@ -11,9 +11,6 @@ public class EnemySpawner : Spawner<Enemy>
     public int MaxAmountEnemy;
 
     [SerializeField] private List<BoxCollider> _spawnAreas;
-    [SerializeField] private Transform _testPoint;
-    [SerializeField] private Player _player;
-    [SerializeField] private PopupSpawner _popupSpawner;
 
     public event Action<int, int> ScoreChanged;
     
@@ -27,8 +24,7 @@ public class EnemySpawner : Spawner<Enemy>
             Enemy enemy = Pool.Get();
 
             enemy.SetStartPosition(GetRandomPointInCollider()); 
-            //enemy.SetPlayerTarget(ServiceLocator.Game.Player);
-            enemy.Health.Popup += _popupSpawner.Create;
+            enemy.Health.Popup += ServiceLocator.Main.PopupSpawner.Create;
             enemy.Health.Reset();
 
             Enemies.Add(enemy);
@@ -45,7 +41,7 @@ public class EnemySpawner : Spawner<Enemy>
     private void RemoveEnemy(Enemy enemy)
     {
         Enemies.Remove(enemy);
-        enemy.Health.Popup -= _popupSpawner.Create;
+        enemy.Health.Popup -= ServiceLocator.Main.PopupSpawner.Create;
         enemy.Died -= RemoveEnemy;
 
         ScoreChanged?.Invoke(Enemies.Count, MaxAmountEnemy);

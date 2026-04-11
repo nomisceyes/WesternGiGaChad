@@ -6,8 +6,6 @@ public class Enemy : MonoBehaviour, IObject<Enemy>
     [SerializeField] protected Transform _popupPoint;
     [SerializeField] private EnemyMover _mover;
 
-    protected Player _player;
-
     public event Action<Enemy> Released;
     public event Action<Enemy> Died;
 
@@ -15,11 +13,7 @@ public class Enemy : MonoBehaviour, IObject<Enemy>
 
     private void Awake() =>
         Health = GetComponent<Health>();
-
-    private void Start()
-    {
-        _player = ServiceLocator.Game.Player;
-    }
+    
     
     private void OnEnable() =>
         Health.Died += Die;
@@ -29,35 +23,20 @@ public class Enemy : MonoBehaviour, IObject<Enemy>
 
     private void Update()
     {
-        if(_player != null)
-            Debug.Log("11");
-        
-        if (ServiceLocator.Game.Player == null)
+        if (ServiceLocator.Main.Player.Health.IsAlive)
         {
-            Debug.Log("Player");
+            Move();
         }
-        else
-        {
-            Debug.Log("Net Player");
-        }
-        
-        // if (ServiceLocator.Game.Player.Health.IsAlive)
-        // {
-        //     Move();
-        // }
     }
 
     protected void Move() =>
-        _mover.MoveTo(ServiceLocator.Game.Player.transform.position);
+        _mover.MoveTo(ServiceLocator.Main.Player.transform.position);
 
     public void SetStartPosition(Vector3 position) =>
         _mover.Warp(position);
 
     public void TakeDamage(int damage) =>
         Health.TakeDamage(_popupPoint, damage);
-
-     public void SetPlayerTarget(Player player) =>
-         _player = player;
 
     protected virtual void Die()
     {

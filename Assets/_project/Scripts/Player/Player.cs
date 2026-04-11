@@ -3,14 +3,21 @@ using UnityEngine;
 public class Player : MonoBehaviour
 {
     [SerializeField] private float _flashDuration = 0.4f;
-    
-     public Health Health;
+
+    [HideInInspector] public WeaponUser WeaponUser;
+    [HideInInspector] public Health Health;
 
     private Material _material;
     private float _hitAmount = 0f;
     
     private string _hitAmountProperty = "_HitAmount";
 
+    private void Awake()
+    {
+        WeaponUser = GetComponent<WeaponUser>();
+        Health = GetComponent<Health>();
+    }
+    
     private void Start()
     {
         Renderer renderer = GetComponentInChildren<Renderer>();
