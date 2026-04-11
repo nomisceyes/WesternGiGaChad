@@ -1,7 +1,6 @@
 using Unity.Cinemachine;
 using UnityEngine;
 using UnityEngine.Animations.Rigging;
-using UnityEngine.UI;
 
 public class CameraSwitcher : MonoBehaviour
 {
@@ -13,22 +12,12 @@ public class CameraSwitcher : MonoBehaviour
     [SerializeField] private CinemachineCamera _aimCamera;
     [SerializeField] private CinemachineInputAxisController _inputAxisController;
     [SerializeField] private CrosshairController _crosshairController;
-
-    private InputService _inputService;
+    
     private CinemachineOrbitalFollow _orbitalFollow;
     private AimCameraController _aimCameraController;
 
     private float _aimRigWeight;
     private bool _isAiming = false;
-
-    // [Inject]
-    // public void Construct(IInputService inputService)
-    // {
-    //     _inputService = inputService;
-    // }
-
-    private void Awake() =>
-    _inputService = ServiceLocator.InputService;
     
     private void Start()
     {
@@ -41,7 +30,7 @@ public class CameraSwitcher : MonoBehaviour
 
     private void Update()
     {
-        switch (_inputService.AimPressed)
+        switch (ServiceLocator.InputService.AimPressed)
         {
             case true when _isAiming == false:
                 EnterAimMode();

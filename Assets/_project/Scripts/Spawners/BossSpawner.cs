@@ -15,6 +15,6 @@ public class BossSpawner : MonoBehaviour
     public void CreateBoss()
     {
         Boss boss = Instantiate(_boss, _bossSpawn.position, Quaternion.identity);
-        boss.SetPlayerTarget(_player);
+        //boss.SetPlayerTarget(_player);
     }
 }

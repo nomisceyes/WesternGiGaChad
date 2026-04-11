@@ -9739,7 +9739,7 @@ AudioSource:
   m_audioClip: {fileID: 0}
   m_Resource: {fileID: 8300000, guid: 299afb0044b7d654fba4930869b88ec2, type: 3}
   m_PlayOnAwake: 1
-  m_Volume: 0.6
+  m_Volume: 0.3
   m_Pitch: 1
   Loop: 1
   Mute: 0
@@ -24005,6 +24005,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 889584ca327662e42966b356fd219dc4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::MainMenu
+  StartButton: {fileID: 0}
 --- !u!114 &452909827
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -60818,19 +60819,7 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1157326319}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 452909826}
-        m_TargetAssemblyTypeName: MainMenu, Assembly-CSharp
-        m_MethodName: StartGame
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
+      m_Calls: []
 --- !u!114 &1157326319
 MonoBehaviour:
   m_ObjectHideFlags: 0

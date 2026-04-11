@@ -22,6 +22,9 @@ public class Spawner<TObject> : MonoBehaviour where TObject : MonoBehaviour, IOb
     public virtual void Release(TObject @object) =>
         Pool.Release(@object);
 
+    protected virtual TObject CreatePrefab(TObject @object,Vector3 position, Vector3 normal) =>
+       Instantiate(@object);
+    
     protected virtual TObject CreatePrefab()
     {
         int index = Random.Range(0, _prefabs.Length);

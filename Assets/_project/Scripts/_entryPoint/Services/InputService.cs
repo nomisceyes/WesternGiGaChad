@@ -38,4 +38,7 @@ public class InputService : MonoBehaviour, IService
 
     public bool IsShooting() =>
         _shootAction.triggered;
+
+    public bool CanShoot() =>
+        IsAiming() && IsShooting();
 }

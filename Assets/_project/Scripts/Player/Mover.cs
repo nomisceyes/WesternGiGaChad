@@ -17,27 +17,32 @@ public class Mover : MonoBehaviour
     [SerializeField] private float _acceleration = 10f;
     [SerializeField] private float _rotationSpeed = 10f;
     [SerializeField] private bool _shouldFaceMoveDirection = false;
-
-    private InputService _inputService;
-
+    
     private Vector3 _moveInput;
     private float _currentSpeed;
 
-    private void Awake() =>
-        _inputService = ServiceLocator.InputService;
-
     private void Update() =>
-        Move();
+        Move(ServiceLocator.InputService.GetMoveInput());
 
-    private void Move()
+    private void Move(Vector3 move)
     {
-        _moveInput = _inputService.GetMoveInput();
+        _moveInput = move;
         
         Vector3 moveDirection = Vector3.zero;
         float targetSpeed = moveDirection.z < 0 ? _backwardSpeed : _speed;
         _currentSpeed = Mathf.Lerp(_currentSpeed, targetSpeed, _acceleration * Time.deltaTime);
 
-        if (_inputService.AimPressed)
+        moveDirection = MoveDirection(moveDirection);
+        moveDirection.y -= Gravity * Time.deltaTime * _acceleration;
+        
+        _characterController.Move(_currentSpeed * Time.deltaTime * moveDirection);
+    }
+
+    private Vector3 MoveDirection(Vector3 moveDirection)
+    {
+        bool aimPressed = ServiceLocator.InputService.AimPressed;
+        
+        if (aimPressed)
         {
             Vector3 forward = transform.forward;
             Vector3 right = transform.right;
@@ -62,11 +67,11 @@ public class Mover : MonoBehaviour
             moveDirection = forward * _moveInput.y + right * _moveInput.x;
         }
 
-        if (_inputService.AimPressed)
+        if (aimPressed)
         {
             Vector3 lookDirection = _yawTarget.forward;
             lookDirection.y = 0f;
-
+        
             if (lookDirection.sqrMagnitude > 0.01f)
             {
                 Quaternion targetRotation = Quaternion.LookRotation(lookDirection);
@@ -78,9 +83,8 @@ public class Mover : MonoBehaviour
         {
             RotateTowardsMovement(moveDirection);
         }
-        
-        moveDirection.y -= Gravity * Time.deltaTime * _acceleration;
-        _characterController.Move(_currentSpeed * Time.deltaTime * moveDirection);
+
+        return moveDirection;
     }
 
     private void RotateTowardsMovement(Vector3 moveDirection)

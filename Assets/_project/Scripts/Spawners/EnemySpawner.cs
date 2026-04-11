@@ -16,21 +16,18 @@ public class EnemySpawner : Spawner<Enemy>
     [SerializeField] private PopupSpawner _popupSpawner;
 
     public event Action<int, int> ScoreChanged;
-
-    private void Start() =>
-        StartCoroutine(SpawnEnemy());
     
     public void Spawn() =>
         StartCoroutine(SpawnEnemy());
-    
+
     private IEnumerator SpawnEnemy()
     {
         for (int i = 0; i < MaxAmountEnemy; i++)
         {
             Enemy enemy = Pool.Get();
 
-            enemy.SetStartPosition(GetRandomPointInCollider());           
-            enemy.SetPlayerTarget(_player);
+            enemy.SetStartPosition(GetRandomPointInCollider()); 
+            //enemy.SetPlayerTarget(ServiceLocator.Game.Player);
             enemy.Health.Popup += _popupSpawner.Create;
             enemy.Health.Reset();
 
@@ -67,7 +64,7 @@ public class EnemySpawner : Spawner<Enemy>
 
         return new Vector3(randomX, randomY, randomZ);
     }
-
+    
     private void OnDrawGizmos()
     {
         foreach (var area in _spawnAreas)

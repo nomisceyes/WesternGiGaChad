@@ -14,11 +14,11 @@ public class Boss : Enemy
         if (_attackIsFinish == false)
             _cooldown -= Time.deltaTime;
         
-        if (_player.IsAlive())
-        {
-            Move();
-            Attack();
-        }
+        // if (_player.IsAlive())
+        // {
+        //     Move();
+        //     Attack();
+        // }
     }
 
     private IEnumerator CreateBullet()
@@ -27,8 +27,8 @@ public class Boss : Enemy
 
         while (_currentAttack != 3)
         {
-            BossBullet bullet = Instantiate(_bullet, _player.transform.position, Quaternion.identity);
-            bullet.Prepare();
+           // BossBullet bullet = Instantiate(_bullet, _player.transform.position, Quaternion.identity);
+           // bullet.Prepare();
 
             yield return new WaitForSeconds(1.5f);
 

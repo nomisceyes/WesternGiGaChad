@@ -4,7 +4,7 @@ public class Player : MonoBehaviour
 {
     [SerializeField] private float _flashDuration = 0.4f;
     
-    [SerializeField] private Health _health;
+     public Health Health;
 
     private Material _material;
     private float _hitAmount = 0f;
@@ -39,9 +39,9 @@ public class Player : MonoBehaviour
         _hitAmount = 1f;
         _material.SetFloat(_hitAmountProperty, _hitAmount);
         
-        _health.TakeDamage(null, damage);
+        Health.TakeDamage(null, damage);
     }
 
     public bool IsAlive() =>
-        _health.IsAlive;
+        Health.IsAlive;
 }

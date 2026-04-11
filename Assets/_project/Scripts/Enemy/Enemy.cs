@@ -16,6 +16,11 @@ public class Enemy : MonoBehaviour, IObject<Enemy>
     private void Awake() =>
         Health = GetComponent<Health>();
 
+    private void Start()
+    {
+        _player = ServiceLocator.Game.Player;
+    }
+    
     private void OnEnable() =>
         Health.Died += Die;
 
@@ -24,14 +29,26 @@ public class Enemy : MonoBehaviour, IObject<Enemy>
 
     private void Update()
     {
-        if (_player.IsAlive())
+        if(_player != null)
+            Debug.Log("11");
+        
+        if (ServiceLocator.Game.Player == null)
         {
-            Move();
+            Debug.Log("Player");
         }
+        else
+        {
+            Debug.Log("Net Player");
+        }
+        
+        // if (ServiceLocator.Game.Player.Health.IsAlive)
+        // {
+        //     Move();
+        // }
     }
 
     protected void Move() =>
-        _mover.MoveTo(_player.transform.position);
+        _mover.MoveTo(ServiceLocator.Game.Player.transform.position);
 
     public void SetStartPosition(Vector3 position) =>
         _mover.Warp(position);
@@ -39,8 +56,8 @@ public class Enemy : MonoBehaviour, IObject<Enemy>
     public void TakeDamage(int damage) =>
         Health.TakeDamage(_popupPoint, damage);
 
-    public void SetPlayerTarget(Player player) =>
-        _player = player;
+     public void SetPlayerTarget(Player player) =>
+         _player = player;
 
     protected virtual void Die()
     {

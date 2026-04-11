@@ -2,77 +2,96 @@ using UnityEngine;
 
 public class Game : MonoBehaviour
 {
-    [SerializeField] private BossSpawner _bossSpawner;
-    [SerializeField] private EnemySpawner _enemySpawner;
-    [SerializeField] private Player _player;
-    [SerializeField] private ResoultsHandler _resoultsHandler;
-    [SerializeField] private PanelHandler _panelHandler;
+    [HideInInspector] public BossSpawner BossSpawner;
+    [HideInInspector] public EnemySpawner EnemySpawner;
+    [HideInInspector] public Player Player;
+    [HideInInspector] public ResoultsHandler ResoultsHandler;
+    [HideInInspector] public PanelHandler PanelHandler;
 
     [SerializeField] private int _maxWaveAmount;
-    
+
     private int _currentWave;
     private bool _prepareToNextWave = false;
     private bool _bossFight = false;
 
     public bool IsPlaying = true;
-    
-    private void Awake()
+
+    private void Start()
     {
-        _bossSpawner.SetTarget(_player);
         IsPlaying = true;
-        
-        DontDestroyOnLoad(this);
+        Init();
+
+        if (Player != null)
+        {
+            EnemySpawner.Spawn();
+
+            Debug.Log("Na meste");
+        }
+    }
+
+    private void Init()
+    {
+        Player = FindFirstObjectByType<Player>();
+        BossSpawner = FindFirstObjectByType<BossSpawner>();
+        EnemySpawner = FindFirstObjectByType<EnemySpawner>();
+        ResoultsHandler = FindFirstObjectByType<ResoultsHandler>();
+        PanelHandler = FindFirstObjectByType<PanelHandler>();
+
+        ServiceLocator.AudioManager.PlayMusic(Res.Audio.BackgroundMusic);
     }
 
     private void Update()
     {
         if (IsPlaying && Input.GetKeyDown(KeyCode.Escape))
         {
-            _panelHandler.PauseGame();
+            PanelHandler.PauseGame();
             IsPlaying = false;
         }
         else if (IsPlaying == false && Input.GetKeyDown(KeyCode.Escape))
         {
-            _panelHandler.StartGame();
+            PanelHandler.StartGame();
             IsPlaying = true;
         }
-        
-        SwitchGameState();  
+
+        SwitchGameState();
     }
 
     private void SwitchGameState()
     {
-        if (_currentWave == _maxWaveAmount)
-        {
-            if (_bossFight == false)
-            {
-                _bossFight = true;
-                  
-                _resoultsHandler.BossFight();
-                _bossSpawner.CreateBoss();
-            }
-        }
-        else if (_enemySpawner.CurrentEnemies == _enemySpawner.MaxAmountEnemy && _enemySpawner.Enemies.Count == 0)
-        {
-            if (_prepareToNextWave == false)
-                ActiveNextWave();
-        }
+        // if (_currentWave == _maxWaveAmount)
+        // {
+        //     if (_bossFight == false)
+        //     {
+        //         _bossFight = true;
+        //
+        //         ResoultsHandler.BossFight();
+        //         BossSpawner.CreateBoss();
+        //     }
+        // }
+        // else if (EnemySpawner.CurrentEnemies == EnemySpawner.MaxAmountEnemy && EnemySpawner.Enemies.Count == 0)
+        // {
+        //     if (_prepareToNextWave == false)
+        //         ActiveNextWave();
+        // }
     }
 
     private void ActiveNextWave()
     {
-        _resoultsHandler.PrepareToNextWave();
+        ResoultsHandler.PrepareToNextWave();
 
         _currentWave++;
 
         if (_currentWave < _maxWaveAmount)
         {
-            _enemySpawner.CurrentEnemies = 0;
-            _enemySpawner.MaxAmountEnemy += 0;
+            EnemySpawner.CurrentEnemies = 0;
+            EnemySpawner.MaxAmountEnemy += 0;
 
-            _enemySpawner.Spawn();
+            EnemySpawner.Spawn();
         }
 
         _prepareToNextWave = false;
     }
+
+    public Player GetPlayer() =>
+        Player;
 }

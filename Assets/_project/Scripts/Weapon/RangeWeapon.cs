@@ -8,8 +8,6 @@ public class RangeWeapon : Weapon
 {
     private const int MinAmountAmmo = 0;
 
-    [SerializeField] private AudioSource _shootSound;
-    [SerializeField] private AudioSource _reloadSound;
     [SerializeField] private ParticleSystem _shootVFX;
     [SerializeField] private ParticleSystem _hitImpactVFX;
     [SerializeField] private CinemachineCamera _aimCamera;
@@ -33,7 +31,7 @@ public class RangeWeapon : Weapon
 
         _shootDelayTime = new WaitForSeconds(_timeBetweenShoot);
         _reloadDelayTime = new WaitForSeconds(_reloadTime);
-        
+
         AmmoChanged?.Invoke(_currentAmountBullets, _maxAmountBullets);
     }
 
@@ -52,18 +50,20 @@ public class RangeWeapon : Weapon
             StartCoroutine(Reload());
         }
     }
-    
+
     private IEnumerator Shoot()
     {
         _shootDelay = true;
 
-        _shootSound.Play();
-        _shootVFX.Play();
+        ServiceLocator.AudioManager.PlaySound(Res.Audio.RifleShoot, 0.5f);
+        //Res.VFX.ShootVFX.Play();
+        //_shootVFX.Play();
 
         _currentAmountBullets--;
         AmmoChanged?.Invoke(_currentAmountBullets, _maxAmountBullets);
 
-        if (Physics.Raycast(_aimCamera.transform.position, _aimCamera.transform.forward, out RaycastHit hit, _maxShootDistance, Layers))
+        if (Physics.Raycast(_aimCamera.transform.position, _aimCamera.transform.forward, out RaycastHit hit,
+                _maxShootDistance, Layers))
         {
             if (hit.collider.TryGetComponent(out Enemy enemy))
             {
@@ -72,7 +72,7 @@ public class RangeWeapon : Weapon
                 enemy.TakeDamage(damage);
             }
 
-            HitEffect(_hitImpactVFX, hit.point, hit.normal);    
+            //HitEffect(Res.VFX.HitVFX,hit.point, hit.normal);
         }
 
         yield return _shootDelayTime;
@@ -83,7 +83,7 @@ public class RangeWeapon : Weapon
     private IEnumerator Reload()
     {
         _isReloading = true;
-        _reloadSound.PlayOneShot(_reloadSound.clip);
+        ServiceLocator.AudioManager.PlaySound(Res.Audio.RifleReload);
 
         yield return _reloadDelayTime;
 
