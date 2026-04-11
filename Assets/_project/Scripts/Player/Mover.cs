@@ -6,25 +6,25 @@ public class Mover : MonoBehaviour
 
     [Header("[Components]")] [SerializeField]
     private CharacterController _characterController;
-
+    
+    [Header("[Camera]")]
     [SerializeField] private Transform _camera;
     [SerializeField] private Transform _yawTarget;
-    [Header("[Stats]")] [SerializeField] private float _speed;
+    
+    [Header("[Stats]")]
+    [SerializeField] private float _speed;
     [SerializeField] private float _backwardSpeed = 3f;
     [SerializeField] private float _acceleration = 10f;
     [SerializeField] private float _rotationSpeed = 10f;
     [SerializeField] private bool _shouldFaceMoveDirection = false;
 
-    private IInputService _inputService;
+    private InputService _inputService;
 
     private Vector3 _moveInput;
     private float _currentSpeed;
 
-    [Inject]
-    public void Construct(IInputService inputService)
-    {
-        _inputService = inputService;
-    }
+    private void Awake() =>
+        _inputService = ServiceLocator.InputService;
 
     private void Update() =>
         Move();
@@ -32,6 +32,7 @@ public class Mover : MonoBehaviour
     private void Move()
     {
         _moveInput = _inputService.GetMoveInput();
+        
         Vector3 moveDirection = Vector3.zero;
         float targetSpeed = moveDirection.z < 0 ? _backwardSpeed : _speed;
         _currentSpeed = Mathf.Lerp(_currentSpeed, targetSpeed, _acceleration * Time.deltaTime);

@@ -1,5 +1,3 @@
 using UnityEngine;
 
-public class Panel : MonoBehaviour
-{
-}
+public class Panel : MonoBehaviour {}

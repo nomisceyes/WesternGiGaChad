@@ -4,14 +4,19 @@ public class WeaponUser : MonoBehaviour
 {
     [SerializeField] private RangeWeapon _gun;
 
-    private IInputService _inputService;
+    private InputService _inputService;
 
-    [Inject]
-    public void Construct(IInputService inputService)
+    // [Inject]
+    // public void Construct(IInputService inputService)
+    // {
+    //     _inputService = inputService;
+    // }
+
+    private void Awake()
     {
-        _inputService = inputService;
+        _inputService = ServiceLocator.InputService;
     }
-
+    
     private void Update()
     {
         // if (_inputService.IsAiming())

@@ -15,21 +15,22 @@ public class PlayerAnimations : MonoBehaviour
     [SerializeField] private float _smoothTime = 0.1f;
     
     private Animator _animator;
-    private IInputService _inputService;
+    private InputService _inputService;
     private Vector2 _smoothVelocity;
     private float _currentHorizontalSpeed;
     private float _currentVerticalSpeed;
     private float _currentSpeed;
 
-    [Inject]
-    public void Construct(IInputService inputService)
-    {
-        _inputService = inputService;
-    }
+    // [Inject]
+    // public void Construct(IInputService inputService)
+    // {
+    //     _inputService = inputService;
+    // }
 
     private void Awake()
     {
         _animator = GetComponent<Animator>();
+        _inputService = ServiceLocator.InputService;
     }
 
     private void Update()

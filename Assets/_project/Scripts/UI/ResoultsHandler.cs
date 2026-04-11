@@ -1,4 +1,6 @@
 using System.Collections;
+using System.Threading.Tasks;
+using Cysharp.Threading.Tasks;
 using TMPro;
 using UnityEngine;
 
@@ -38,17 +40,7 @@ public class ResoultsHandler : MonoBehaviour
         yield return new WaitForSeconds(1f);
 
         _prepareText.gameObject.SetActive(false);
-
-        Debug.Log("3");
-
-        yield return new WaitForSeconds(1f);
-
-        Debug.Log("2");
-
-        yield return new WaitForSeconds(1f);
-
-        Debug.Log("1");
-
+        
         yield return new WaitForSeconds(0.5f);
     }
 }

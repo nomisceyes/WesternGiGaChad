@@ -1,5 +1,3 @@
-using UnityEngine;
-
 public class SoundPanel : Panel
 {
     public void OnClick()

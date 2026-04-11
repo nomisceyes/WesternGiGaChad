@@ -1,11 +1,18 @@
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class PanelHandler : MonoBehaviour
 {
     [SerializeField] private List<Panel> _panels;
     [SerializeField] private PausePanel _pausePanel;
 
+    private void Update()
+    {
+        if (SceneManager.GetActiveScene().name == "MainMenu")
+            CloseAllPanels();
+    }
+    
     public void StartGame()
     {
         _pausePanel.Pause(false);

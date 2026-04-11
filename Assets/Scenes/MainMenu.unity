@@ -23899,6 +23899,7 @@ GameObject:
   - component: {fileID: 452909824}
   - component: {fileID: 452909823}
   - component: {fileID: 452909822}
+  - component: {fileID: 452909827}
   - component: {fileID: 452909826}
   m_Layer: 5
   m_Name: MainMenu_Canvas
@@ -23964,8 +23965,8 @@ Canvas:
   m_OverrideSorting: 0
   m_OverridePixelPerfect: 0
   m_SortingBucketNormalizedSize: 0
-  m_VertexColorAlwaysGammaSpace: 0
-  m_AdditionalShaderChannelsFlag: 25
+  m_VertexColorAlwaysGammaSpace: 1
+  m_AdditionalShaderChannelsFlag: 0
   m_UpdateRectTransformForStandalone: 0
   m_SortingLayerID: 0
   m_SortingOrder: 0
@@ -24004,8 +24005,21 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 889584ca327662e42966b356fd219dc4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::MainMenu
+--- !u!114 &452909827
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 452909821}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6a2ae9ee2276ded4fbe6f6f9e2e3e6b0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::PanelHandler
   _panels:
   - {fileID: 1282300401}
+  _pausePanel: {fileID: 0}
 --- !u!1001 &452992787
 PrefabInstance:
   m_ObjectHideFlags: 0

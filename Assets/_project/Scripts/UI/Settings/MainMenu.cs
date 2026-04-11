@@ -1,22 +1,17 @@
-using System.Collections;
 using UnityEngine;
 
-public class MainMenu : MonoBehaviour, ICoroutineRunner
+public class MainMenu : MonoBehaviour
 {
-    private SceneLoader _sceneLoader; 
-    
-    private void Start()
-    {
-        _sceneLoader = new SceneLoader(this);
-    }
+
+    // [Inject]
+    // public void Construct(ISceneLoader sceneLoader)
+    // {
+    //     _sceneLoader = sceneLoader;
+    // }
     
     public void StartGame()
     {
-        _sceneLoader.Load("Main");
-    }
-
-    public Coroutine StartRoutine(IEnumerator coroutine)
-    {
-        return StartCoroutine(coroutine);
+        ServiceLocator.SceneLoader.Load("Main");
+        //_sceneLoader.Load("Main");
     }
 }

@@ -1,83 +1,38 @@
-using System;
-using System.Collections.Generic;
-using System.Reflection;
 using UnityEngine;
 
-public class Bootstrapper : MonoBehaviour
+public static class ServiceLocator
 {
-    [Header("[Components for injection]\n")]
-    [SerializeField] private Mover _mover;
-    [SerializeField] private Game _game;
-    [SerializeField] private WeaponUser _weaponUser;
-    [SerializeField] private CameraSwitcher _cameraSwitcher;
-    [SerializeField] private PlayerAnimations _playerAnimations;
+    public static InputService InputService;
+    public static SceneLoader SceneLoader;
+    public static AudioManager AudioManager;
+}
 
-    private List<MonoBehaviour> _monoBehaviour = new();
-    
-    private readonly Dictionary<Type, object> _services = new();
+[DefaultExecutionOrder(-9999)]
+public static class Bootstrapper
+{
+    private static bool _isInitialized = false;
+    private static GameObject _serviceHolder;
 
-    private void Awake()
+    [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.BeforeSceneLoad)]
+    static void OnBeforeSceneLoad()
     {
-        _monoBehaviour.Add(_mover);
-        _monoBehaviour.Add(_weaponUser);
-        _monoBehaviour.Add(_cameraSwitcher);
-        _monoBehaviour.Add(_game);
-        _monoBehaviour.Add(_playerAnimations);
+        if (_isInitialized) return;
         
-        RegisterServices();
-
-        InjectAllComponents();
+        _serviceHolder = new GameObject("---Services---");
+        Object.DontDestroyOnLoad(_serviceHolder);
+        
+        ServiceLocator.InputService = CreateSimpleService<InputService>();
+        ServiceLocator.SceneLoader = CreateSimpleService<SceneLoader>();
+        ServiceLocator.AudioManager = CreateSimpleService<AudioManager>();
     }
 
-    private void InjectAllComponents()
+    private static T CreateSimpleService<T>() where T : Component, IService
     {
-        foreach (MonoBehaviour monoBehaviour in _monoBehaviour)
-        {
-            Debug.Log($"<color=#FF0000> Injecting: {monoBehaviour.GetType()}</color>");
-            Inject(monoBehaviour);
-        }
-    }
-
-    private void RegisterServices()
-    {
-        _services[typeof(IInputService)] = new InputService();
-    }
-    
-    private void Inject(MonoBehaviour monoBehaviour)
-    {
-        Type type = monoBehaviour.GetType();
-
-        var methodsInfo = type.GetMethods(
-            BindingFlags.Public |
-            BindingFlags.NonPublic |
-            BindingFlags.Instance |
-            BindingFlags.FlattenHierarchy
-        );
-
-        foreach (MethodInfo methodInfo in methodsInfo)
-        {
-            if (methodInfo.IsDefined(typeof(InjectAttribute)) == false)
-                continue;
-
-            var parametersInfo = methodInfo.GetParameters();
-            var args = new object[parametersInfo.Length];
-
-            for (int i = 0; i < parametersInfo.Length; i++)
-            {
-                Type paramType = parametersInfo[i].ParameterType;
-                
-                if (_services.TryGetValue(paramType, out var service))
-                {
-                    args[i] = service;
-                }
-                else
-                {
-                    Debug.LogError($"Service {paramType} not found for {type.Name}");
-                    args[i] = null;
-                }
-            }
-
-            methodInfo.Invoke(monoBehaviour, args);
-        }
+        GameObject g = new GameObject(typeof(T).ToString());
+        
+        g.transform.parent = _serviceHolder.transform;
+        T t = g.AddComponent<T>();
+        t.Init();
+        return g.GetComponent<T>();
     }
 }

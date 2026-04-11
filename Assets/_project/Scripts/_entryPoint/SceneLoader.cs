@@ -1,31 +1,25 @@
 using System;
-using System.Collections;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-public class SceneLoader
+public class SceneLoader : MonoBehaviour, IService
 {
-    private readonly ICoroutineRunner _coroutineRunner;
+    public string CurrentSceneName = null;
+    public Action OnLoaded;
 
-    public SceneLoader(ICoroutineRunner coroutineRunner) =>
-        _coroutineRunner = coroutineRunner;
-
-    public void Load(string name, Action onLoaded = null) =>
-        _coroutineRunner.StartRoutine(LoadScene(name, onLoaded));
-
-    private IEnumerator LoadScene(string nextScene, Action onLoaded = null)
+    public void Init()
     {
-        if (SceneManager.GetActiveScene().name == nextScene)
-        {
-            onLoaded?.Invoke();
-            yield break;
-        }
+        CurrentSceneName = SceneManager.GetActiveScene().name;
+        SceneManager.sceneLoaded += (scene, sceneMode) => OnLoaded?.Invoke();
+    }
 
-        AsyncOperation waitNextScene = SceneManager.LoadSceneAsync(nextScene);
+    public void Load(string name) =>
+        LoadScene(name);
 
-        while (waitNextScene is { isDone: false })
-            yield return null;
-
-        onLoaded?.Invoke();
+    private void LoadScene(string name)
+    {
+        if (CurrentSceneName == null) return;
+        SceneManager.LoadScene(CurrentSceneName);
+        CurrentSceneName = name;
     }
 }

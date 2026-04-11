@@ -1,4 +1,3 @@
-using NUnit.Framework;
 using UnityEngine;
 
 public class Game : MonoBehaviour
@@ -15,15 +14,7 @@ public class Game : MonoBehaviour
     private bool _prepareToNextWave = false;
     private bool _bossFight = false;
 
-    private IInputService _inputService;
-
     public bool IsPlaying = true;
-
-    [Inject]
-    public void Construct(IInputService inputService)
-    {
-        _inputService = inputService;
-    }
     
     private void Awake()
     {
@@ -46,8 +37,6 @@ public class Game : MonoBehaviour
             IsPlaying = true;
         }
         
-        _inputService.Update();
-
         SwitchGameState();  
     }
 

@@ -13,17 +13,15 @@ public class Health : MonoBehaviour
     [field: SerializeField] public int CurrentHealth { get; private set; }
 
     public bool IsAlive { get; private set; } = true;
-
+    
     private void Awake() =>
         CurrentHealth = MaxHealth;
-
+    
     private void Start() =>
         ValueChanged?.Invoke();
 
     public void TakeDamage(Transform popupPoint, int damage)
     {
-        Popup?.Invoke(popupPoint, damage);
-
         if (damage >= 0)
         {
             CurrentHealth = Mathf.Clamp(CurrentHealth - damage, MinAmount, MaxHealth);
@@ -35,20 +33,9 @@ public class Health : MonoBehaviour
             Died?.Invoke();
         }
 
+        Popup?.Invoke(popupPoint, damage);
         ValueChanged?.Invoke();
     }
-
-    public void Restore(int value)
-    {
-        IsAlive = true;
-
-        CurrentHealth = Mathf.Clamp(CurrentHealth + Mathf.Abs(value), MinAmount, MaxHealth);
-
-        ValueChanged?.Invoke();
-    }
-
-    public bool GetPossibleOfHealing() =>
-        CurrentHealth < MaxHealth;
 
     public void Reset()
     {

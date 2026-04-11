@@ -13,21 +13,23 @@ public class CameraSwitcher : MonoBehaviour
     [SerializeField] private CinemachineCamera _aimCamera;
     [SerializeField] private CinemachineInputAxisController _inputAxisController;
     [SerializeField] private CrosshairController _crosshairController;
-    //[SerializeField] private Image _crosshair;
 
-    private IInputService _inputService;
+    private InputService _inputService;
     private CinemachineOrbitalFollow _orbitalFollow;
     private AimCameraController _aimCameraController;
 
     private float _aimRigWeight;
     private bool _isAiming = false;
 
-    [Inject]
-    public void Construct(IInputService inputService)
-    {
-        _inputService = inputService;
-    }
+    // [Inject]
+    // public void Construct(IInputService inputService)
+    // {
+    //     _inputService = inputService;
+    // }
 
+    private void Awake() =>
+    _inputService = ServiceLocator.InputService;
+    
     private void Start()
     {
         _aimCameraController = _aimCamera.GetComponent<AimCameraController>();
@@ -48,8 +50,6 @@ public class CameraSwitcher : MonoBehaviour
                 ExitAimMode();
                 break;
         }
-        
-       // _aimRig.weight = Mathf.Lerp(_aimRig.weight, _aimRigWeight, Time.deltaTime * 20f);
     }
 
     private void EnterAimMode()
@@ -62,12 +62,10 @@ public class CameraSwitcher : MonoBehaviour
         _freelookCamera.Priority = MinCameraPriority;
 
         _inputAxisController.enabled = false;
-        //_crosshair.gameObject.SetActive(true);
         _crosshairController.EnableCrosshair();
 
         
         _aimRig.weight = 1f;
-        //_aimRigWeight = 1f;
     }
 
     private void ExitAimMode()
@@ -80,11 +78,9 @@ public class CameraSwitcher : MonoBehaviour
         _freelookCamera.Priority = MaxCameraPriority;
 
         _inputAxisController.enabled = true;
-        //_crosshair.gameObject.SetActive(false);
         _crosshairController.DisableCrosshair();
 
         _aimRig.weight = 0f;
-        //_aimRigWeight = 0f;
     }
 
     private void SnapFreeLookBehindPlayer()

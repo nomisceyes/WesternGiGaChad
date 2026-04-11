@@ -85,7 +85,7 @@ MonoBehaviour:
   m_FallbackScreenDPI: 96
   m_DefaultSpriteDPI: 96
   m_DynamicPixelsPerUnit: 1
-  m_PresetInfoIsWorld: 0
+  m_PresetInfoIsWorld: 1
 --- !u!114 &3903077630883037953
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -116,6 +116,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::SmoothHealthSliderBar
   Health: {fileID: 0}
+  HealthBarShake: {fileID: 0}
   Slider: {fileID: 267773469268936621}
   _fillingSpeed: 10
 --- !u!1001 &6586609265748996602

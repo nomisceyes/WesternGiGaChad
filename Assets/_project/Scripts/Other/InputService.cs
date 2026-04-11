@@ -1,35 +1,27 @@
 using UnityEngine;
 using UnityEngine.InputSystem;
 
-public class InputService : IInputService
+public class InputService : MonoBehaviour, IService
 {
-    private readonly PlayerControls _playerControls;
+    private PlayerControls _playerControls;
 
     private InputAction _moveAction;
     private InputAction _aimAction;
     private InputAction _shootAction;
     private Vector3 _currentMoveInput;
-    
+
     public bool AimPressed { get; private set; }
     
-    public InputService()
+    public void Init()
     {
-        Debug.Log("Input Service Init");
-        
         _playerControls = new PlayerControls();
-
-        Enable();
-    }
-
-    public void Enable()
-    {
         _playerControls.Enable();
         _moveAction = _playerControls.Gameplay.Move;
         _aimAction = _playerControls.Gameplay.Aim;
         _shootAction = _playerControls.Gameplay.Shoot;
     }
-
-    public void Update()
+    
+    private void Update()
     {
         _currentMoveInput = _moveAction.ReadValue<Vector3>();
         AimPressed = _aimAction.IsPressed();
@@ -40,16 +32,10 @@ public class InputService : IInputService
 
     public bool IsAiming() =>
         _aimAction.IsPressed();
-    
+
     public bool Aiming() =>
         _aimAction.triggered;
 
     public bool IsShooting() =>
         _shootAction.triggered;
-
-    public void Dispose()
-    {
-        Debug.Log("Input Dispose");
-        _playerControls.Disable();
-    }
 }
