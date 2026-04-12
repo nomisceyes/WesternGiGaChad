@@ -15,12 +15,14 @@ public class PanelHandler : MonoBehaviour
     
     public void StartGame()
     {
+        Global.AudioManager.ResumeMusic();
         _pausePanel.Pause(false);
         _pausePanel.gameObject.SetActive(false);
     }
     
     public void PauseGame()
     {
+        Global.AudioManager.PauseMusic();
         _pausePanel.Pause(true);
         _pausePanel.gameObject.SetActive(true);
     }

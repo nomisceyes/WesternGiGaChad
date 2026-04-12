@@ -1,5 +1,4 @@
 using System;
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using Random = UnityEngine.Random;
@@ -14,17 +13,14 @@ public class EnemySpawner : Spawner<Enemy>
 
     public event Action<int, int> ScoreChanged;
     
-    public void Spawn() =>
-        StartCoroutine(SpawnEnemy());
-
-    private IEnumerator SpawnEnemy()
+    public void SpawnEnemy()
     {
         for (int i = 0; i < MaxAmountEnemy; i++)
         {
             Enemy enemy = Pool.Get();
 
             enemy.SetStartPosition(GetRandomPointInCollider()); 
-            enemy.Health.Popup += ServiceLocator.Main.PopupSpawner.Create;
+            enemy.Health.Popup += Global.Main.PopupSpawner.Create;
             enemy.Health.Reset();
 
             Enemies.Add(enemy);
@@ -33,15 +29,13 @@ public class EnemySpawner : Spawner<Enemy>
             enemy.Died += RemoveEnemy;
 
             ScoreChanged?.Invoke(Enemies.Count, MaxAmountEnemy);
-
-            yield return 0;
         }
     }
 
     private void RemoveEnemy(Enemy enemy)
     {
         Enemies.Remove(enemy);
-        enemy.Health.Popup -= ServiceLocator.Main.PopupSpawner.Create;
+        enemy.Health.Popup -= Global.Main.PopupSpawner.Create;
         enemy.Died -= RemoveEnemy;
 
         ScoreChanged?.Invoke(Enemies.Count, MaxAmountEnemy);

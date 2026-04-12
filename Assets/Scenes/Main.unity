@@ -537,17 +537,17 @@ RectTransform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 44389238}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 51.24662}
-  m_LocalScale: {x: 0.69895834, y: 0.69895834, z: 0.69895834}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 2.2273784, y: 2.2273784, z: 2.2273784}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 727744806}
-  m_Father: {fileID: 1597823398}
+  m_Father: {fileID: 524855540}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 934.11316, y: 414.107}
-  m_SizeDelta: {x: 1920, y: 828.37555}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &44389241
 MonoBehaviour:
@@ -562,8 +562,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: UnityEngine.UI::UnityEngine.UI.Image
   m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 1, b: 1, a: 0.392}
-  m_RaycastTarget: 1
+  m_Color: {r: 1, g: 1, b: 1, a: 0.6117647}
+  m_RaycastTarget: 0
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
   m_OnCullStateChanged:
@@ -7995,6 +7995,7 @@ RectTransform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 833154535}
+  - {fileID: 44389239}
   m_Father: {fileID: 1597823398}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
@@ -10482,7 +10483,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: UnityEngine.UI::UnityEngine.UI.Text
   m_Material: {fileID: 0}
   m_Color: {r: 0.19607843, g: 0.19607843, b: 0.19607843, a: 1}
-  m_RaycastTarget: 1
+  m_RaycastTarget: 0
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
   m_OnCullStateChanged:
@@ -23314,7 +23315,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1406611563330574570, guid: 2c3f8bf8346e7f84c815dd482b9b3d46, type: 3}
       propertyPath: MaxAmountEnemy
-      value: 1
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 1406611563330574570, guid: 2c3f8bf8346e7f84c815dd482b9b3d46, type: 3}
       propertyPath: _maxAmountEnemy
@@ -23555,7 +23556,7 @@ MonoBehaviour:
   ResoultsHandler: {fileID: 0}
   PanelHandler: {fileID: 0}
   PopupSpawner: {fileID: 0}
-  _maxWaveAmount: 0
+  _maxWaveAmount: 2
   IsPlaying: 1
 --- !u!4 &1597823398
 Transform:
@@ -23571,7 +23572,6 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 1473929053}
-  - {fileID: 44389239}
   - {fileID: 524855540}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -31933,6 +31933,10 @@ PrefabInstance:
     - target: {fileID: 4650960231761424429, guid: c3fa34bd6d368224ba21f1ce8006a477, type: 3}
       propertyPath: m_text
       value: Ammo
+      objectReference: {fileID: 0}
+    - target: {fileID: 5083342967912207947, guid: c3fa34bd6d368224ba21f1ce8006a477, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 14.800049
       objectReference: {fileID: 0}
     - target: {fileID: 5636019608712291463, guid: c3fa34bd6d368224ba21f1ce8006a477, type: 3}
       propertyPath: m_LocalRotation.w

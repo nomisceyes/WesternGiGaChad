@@ -1,6 +1,7 @@
+using DG.Tweening;
 using UnityEngine;
 
-public static class ServiceLocator
+public static class Global
 {
     public static InputService InputService;
     public static SceneLoader SceneLoader;
@@ -17,26 +18,20 @@ public static class Bootstrapper
     private static GameObject _serviceHolder;
 
     [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.BeforeSceneLoad)]
-    static void OnBeforeSceneLoad()
+    private static void OnBeforeSceneLoad()
     {
         if (_isInitialized) return;
-        
+
+        DOTween.Init();
         Res.InitAudio();
         //Res.InitVFX();
         
         _serviceHolder = new GameObject("---Services---");
         Object.DontDestroyOnLoad(_serviceHolder);
 
-        ServiceLocator.InputService = CreateSimpleService<InputService>();
-        ServiceLocator.SceneLoader = CreateSimpleService<SceneLoader>();
-        ServiceLocator.AudioManager = CreateSimpleService<AudioManager>(); 
-        ServiceLocator.Main = Object.FindFirstObjectByType<Game>();
-
-        ServiceLocator.SceneLoader.OnLoaded = () =>
-        {
-            ServiceLocator.Main = Object.FindFirstObjectByType<Game>();
-            Debug.Log(ServiceLocator.Main);
-        };
+        Global.InputService = CreateSimpleService<InputService>();
+        Global.SceneLoader = CreateSimpleService<SceneLoader>();
+        Global.AudioManager = CreateSimpleService<AudioManager>(); 
     }
 
     private static T CreateSimpleService<T>() where T : Component, IService

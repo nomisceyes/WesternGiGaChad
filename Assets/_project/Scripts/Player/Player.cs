@@ -3,8 +3,7 @@ using UnityEngine;
 public class Player : MonoBehaviour
 {
     [SerializeField] private float _flashDuration = 0.4f;
-
-    [HideInInspector] public WeaponUser WeaponUser;
+    
     [HideInInspector] public Health Health;
 
     private Material _material;
@@ -14,7 +13,6 @@ public class Player : MonoBehaviour
 
     private void Awake()
     {
-        WeaponUser = GetComponent<WeaponUser>();
         Health = GetComponent<Health>();
     }
     
@@ -48,7 +46,4 @@ public class Player : MonoBehaviour
         
         Health.TakeDamage(null, damage);
     }
-
-    public bool IsAlive() =>
-        Health.IsAlive;
 }

@@ -1,3 +1,4 @@
+using Cysharp.Threading.Tasks;
 using UnityEngine;
 
 public class Game : MonoBehaviour
@@ -11,11 +12,10 @@ public class Game : MonoBehaviour
 
     [SerializeField] private int _maxWaveAmount;
 
-    private int _currentWave;
-    private bool _prepareToNextWave = false;
-    private bool _bossFight = false;
-
     public bool IsPlaying = true;
+    
+    private int _currentWave;
+    private bool _isProcessingWave;
 
     private void Start()
     {
@@ -25,6 +25,8 @@ public class Game : MonoBehaviour
 
     private void Init()
     {
+        Global.Main = this;
+
         Player = FindFirstObjectByType<Player>();
         BossSpawner = FindFirstObjectByType<BossSpawner>();
         EnemySpawner = FindFirstObjectByType<EnemySpawner>();
@@ -32,9 +34,9 @@ public class Game : MonoBehaviour
         PanelHandler = FindFirstObjectByType<PanelHandler>();
         PopupSpawner = FindFirstObjectByType<PopupSpawner>();
 
-        ServiceLocator.AudioManager.PlayMusic(Res.Audio.BackgroundMusic);
+        Global.AudioManager.PlayMusic(Res.Audio.BackgroundMusic);
         
-        EnemySpawner.Spawn();
+        EnemySpawner.SpawnEnemy();
     }
 
     private void Update()
@@ -50,42 +52,40 @@ public class Game : MonoBehaviour
             IsPlaying = true;
         }
 
-        SwitchGameState();
+        _ = ActiveNextWave();
     }
-
-    private void SwitchGameState()
+    
+    private async UniTask ActiveNextWave()
     {
-        // if (_currentWave == _maxWaveAmount)
-        // {
-        //     if (_bossFight == false)
-        //     {
-        //         _bossFight = true;
-        //
-        //         ResoultsHandler.BossFight();
-        //         BossSpawner.CreateBoss();
-        //     }
-        // }
-        // else if (EnemySpawner.CurrentEnemies == EnemySpawner.MaxAmountEnemy && EnemySpawner.Enemies.Count == 0)
-        // {
-        //     if (_prepareToNextWave == false)
-        //         ActiveNextWave();
-        // }
-    }
-
-    private void ActiveNextWave()
-    {
-        ResoultsHandler.PrepareToNextWave();
-
-        _currentWave++;
-
-        if (_currentWave < _maxWaveAmount)
+        if (_isProcessingWave) return;
+        
+        if (EnemySpawner.CurrentEnemies == EnemySpawner.MaxAmountEnemy && EnemySpawner.Enemies.Count == 0)
         {
-            EnemySpawner.CurrentEnemies = 0;
-            EnemySpawner.MaxAmountEnemy += 0;
+            _isProcessingWave = true;
+            _currentWave++;
 
-            EnemySpawner.Spawn();
+            await ResoultsHandler.PrepareToNextWave();
+
+            if (this != null && gameObject.activeInHierarchy)
+            {
+                await UniTask.Delay(2000, cancellationToken: this.GetCancellationTokenOnDestroy());
+                EnemySpawner.SpawnEnemy();
+            }
+
+            _isProcessingWave = false;
         }
+    }
 
-        _prepareToNextWave = false;
+    private async UniTask ActiveBossState()
+    {
+        if (_currentWave == _maxWaveAmount && _isProcessingWave == false)
+        {
+            _isProcessingWave = true;
+            await ResoultsHandler.PrepareToBossFight();
+
+            BossSpawner.CreateBoss();
+
+            _isProcessingWave = false;
+        }
     }
 }

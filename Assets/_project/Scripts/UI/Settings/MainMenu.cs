@@ -12,6 +12,6 @@ public class MainMenu : MonoBehaviour
 
     public void StartGame()
     {
-        ServiceLocator.SceneLoader.Load("Main");
+        Global.SceneLoader.Load("Main");
     }
 }

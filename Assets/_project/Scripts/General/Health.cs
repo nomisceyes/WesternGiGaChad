@@ -39,6 +39,7 @@ public class Health : MonoBehaviour
 
     public void Reset()
     {
+        IsAlive = true;
         CurrentHealth = MaxHealth;
         ValueChanged?.Invoke();
     }

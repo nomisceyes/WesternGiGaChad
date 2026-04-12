@@ -24005,7 +24005,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 889584ca327662e42966b356fd219dc4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::MainMenu
-  StartButton: {fileID: 0}
+  StartButton: {fileID: 1157326318}
 --- !u!114 &452909827
 MonoBehaviour:
   m_ObjectHideFlags: 0

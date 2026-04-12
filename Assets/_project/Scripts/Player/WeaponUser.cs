@@ -11,7 +11,7 @@ public class WeaponUser : MonoBehaviour
     
     private void Update()
     {
-        if (ServiceLocator.InputService.CanShoot())
+        if (Global.InputService.CanShoot())
         {
             Gun.Shooting();
         }

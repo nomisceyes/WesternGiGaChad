@@ -12,18 +12,17 @@ public class EnemyBullet : MonoBehaviour, IObject<EnemyBullet>
     public event Action<EnemyBullet> Released;
 
     private void OnEnable()
-    {          
+    {
         StartCoroutine(DestroyAfterLifetime());
-    }  
+    }
 
     private void OnCollisionEnter(Collision collision)
-    {    
-        if (collision.collider.TryGetComponent(out Player player) && player.IsAlive())
+    {
+        if (collision.collider.TryGetComponent(out Player player) && player.Health.IsAlive)
         {
             player.TakeDamage(_damage);
-        Released?.Invoke(this);
+            Released?.Invoke(this);
         }
-
     }
 
     private IEnumerator DestroyAfterLifetime()
@@ -36,7 +35,7 @@ public class EnemyBullet : MonoBehaviour, IObject<EnemyBullet>
     }
 
     public void SetDirection(Vector3 direction) =>
-         _rigidbody.linearVelocity = direction * _speed;
+        _rigidbody.linearVelocity = direction * _speed;
 
     public void Reset()
     {

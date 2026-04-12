@@ -1,5 +1,4 @@
-using System.Collections;
-using System.Threading.Tasks;
+using System.Threading;
 using Cysharp.Threading.Tasks;
 using TMPro;
 using UnityEngine;
@@ -10,37 +9,44 @@ public class ResoultsHandler : MonoBehaviour
     [SerializeField] private TextMeshProUGUI _prepareText;
     [SerializeField] private TextMeshProUGUI _bossText;
 
-    public void BossFight() =>
-        StartCoroutine(PrepareToBossFight());
+    private bool _isPreparing = false;
 
-    public void PrepareToNextWave() =>
-        StartCoroutine(PrepareToNextWaveRoutine());
-
-    private IEnumerator PrepareToBossFight()
+    public async UniTask PrepareToBossFight()
     {
         _bossText.gameObject.SetActive(true);
 
-        yield return new WaitForSeconds(1f);
+        await UniTask.Delay(1000);
 
         _bossText.gameObject.SetActive(false);
     }
 
-    private IEnumerator PrepareToNextWaveRoutine()
+    public async UniTask PrepareToNextWave(CancellationToken token = default)
     {
-        _victoryText.gameObject.SetActive(true);
+        if (_isPreparing) return;
 
-        yield return new WaitForSeconds(3f);
+        _isPreparing = true;
 
-        _victoryText.gameObject.SetActive(false);
+        try
+        {
+            _victoryText.gameObject.SetActive(true);
 
-        yield return new WaitForSeconds(1f);
+            await UniTask.Delay(3000, cancellationToken: token);
 
-        _prepareText.gameObject.SetActive(true);
+            _victoryText.gameObject.SetActive(false);
 
-        yield return new WaitForSeconds(1f);
+            await UniTask.Delay(1000, cancellationToken: token);
 
-        _prepareText.gameObject.SetActive(false);
-        
-        yield return new WaitForSeconds(0.5f);
+            _prepareText.gameObject.SetActive(true);
+
+            await UniTask.Delay(1000, cancellationToken: token);
+
+            _prepareText.gameObject.SetActive(false);
+
+            await UniTask.Delay(500, cancellationToken: token);
+        }
+        finally
+        {
+            _isPreparing = false;
+        }
     }
 }

@@ -55,7 +55,7 @@ public class RangeWeapon : Weapon
     {
         _shootDelay = true;
 
-        ServiceLocator.AudioManager.PlaySound(Res.Audio.RifleShoot, 0.5f);
+        Global.AudioManager.PlaySound(Res.Audio.RifleShoot, 0.5f);
         //Res.VFX.ShootVFX.Play();
         //_shootVFX.Play();
 
@@ -83,7 +83,7 @@ public class RangeWeapon : Weapon
     private IEnumerator Reload()
     {
         _isReloading = true;
-        ServiceLocator.AudioManager.PlaySound(Res.Audio.RifleReload);
+        Global.AudioManager.PlaySound(Res.Audio.RifleReload);
 
         yield return _reloadDelayTime;
 

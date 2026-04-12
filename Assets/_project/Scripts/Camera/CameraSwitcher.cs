@@ -30,7 +30,7 @@ public class CameraSwitcher : MonoBehaviour
 
     private void Update()
     {
-        switch (ServiceLocator.InputService.AimPressed)
+        switch (Global.InputService.AimPressed)
         {
             case true when _isAiming == false:
                 EnterAimMode();

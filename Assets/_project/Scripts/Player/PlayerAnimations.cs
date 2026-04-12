@@ -32,7 +32,7 @@ public class PlayerAnimations : MonoBehaviour
 
     private void Move()
     {
-        SmoothInput(ServiceLocator.InputService.GetMoveInput().x, ServiceLocator.InputService.GetMoveInput().y);
+        SmoothInput(Global.InputService.GetMoveInput().x, Global.InputService.GetMoveInput().y);
 
         _animator.SetFloat(_horizontalSpeed, _currentHorizontalSpeed);
         _animator.SetFloat(_verticalSpeed, _currentVerticalSpeed);
@@ -52,12 +52,12 @@ public class PlayerAnimations : MonoBehaviour
 
     private void Aiming()
     {
-        _animator.SetBool(_aiming, ServiceLocator.InputService.IsAiming());
+        _animator.SetBool(_aiming, Global.InputService.IsAiming());
     }
 
     private void Shooting()
     {
-        if (ServiceLocator.InputService.IsShooting())
+        if (Global.InputService.IsShooting())
             _animator.SetTrigger(_shooting);
     }
 }

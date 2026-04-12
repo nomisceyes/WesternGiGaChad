@@ -22,7 +22,7 @@ public class Mover : MonoBehaviour
     private float _currentSpeed;
 
     private void Update() =>
-        Move(ServiceLocator.InputService.GetMoveInput());
+        Move(Global.InputService.GetMoveInput());
 
     private void Move(Vector3 move)
     {
@@ -40,7 +40,7 @@ public class Mover : MonoBehaviour
 
     private Vector3 MoveDirection(Vector3 moveDirection)
     {
-        bool aimPressed = ServiceLocator.InputService.AimPressed;
+        bool aimPressed = Global.InputService.AimPressed;
         
         if (aimPressed)
         {
