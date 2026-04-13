@@ -6,7 +6,7 @@ public class PanelHandler : MonoBehaviour
 {
     [SerializeField] private List<Panel> _panels;
     [SerializeField] private PausePanel _pausePanel;
-
+    
     private void Update()
     {
         if (SceneManager.GetActiveScene().name == "MainMenu")

@@ -5,23 +5,24 @@ using UnityEngine;
 public class Enemy : MonoBehaviour, IObject<Enemy>
 {
     [SerializeField] protected Transform _popupPoint;
-    [SerializeField] private EnemyMover _mover;
+    private EnemyMover _mover;
 
     public event Action<Enemy> Released;
     public event Action<Enemy> Died;
 
     private DeathRotate _deathRotate;
-    
+
     bool can = false;
-    
+
     public Health Health { get; private set; }
 
     private void Awake()
     {
         Health = GetComponent<Health>();
+        _mover = GetComponent<EnemyMover>();
         _deathRotate = GetComponent<DeathRotate>();
     }
-    
+
     private void OnEnable() =>
         Health.Died += Die;
 
@@ -36,8 +37,10 @@ public class Enemy : MonoBehaviour, IObject<Enemy>
         }
     }
 
-    protected void Move() =>
+    protected void Move()
+    {
         _mover.MoveTo(Global.Main.Player.transform.position);
+    }
 
     public void SetStartPosition(Vector3 position) =>
         _mover.Warp(position);
@@ -45,26 +48,29 @@ public class Enemy : MonoBehaviour, IObject<Enemy>
     public void TakeDamage(int damage) =>
         Health.TakeDamage(_popupPoint, damage);
 
+    public void Reset()
+    {
+        _mover._agent.enabled = true;
+        _mover.enabled = true;
+        enabled = true;
+        can = false;
+    }
+
     private async UniTask TimeBeforeDie()
     {
         _mover._agent.enabled = false;
         _mover.enabled = false;
-        
+        enabled = false;
+
         _deathRotate.Trigger(gameObject);
-        
-        await UniTask.Delay(2000);
-        
-        can = true;
+       
+        await UniTask.Delay(500);
     }
-    
+
     protected virtual void Die()
     {
-        TimeBeforeDie();
-        
-        if (can)
-        {
-            Released?.Invoke(this);
-            Died?.Invoke(this);
-        }
+        Died?.Invoke(this);
+        _ = TimeBeforeDie();
+        Released?.Invoke(this);
     }
 }

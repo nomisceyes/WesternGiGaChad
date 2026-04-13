@@ -33,6 +33,7 @@ public class Spawner<TObject> : MonoBehaviour where TObject : MonoBehaviour, IOb
 
     protected virtual void ResetObject(TObject @object)
     {
+        Debug.Log(@object.name + " has been released");
         @object.Released -= Release;
         @object.gameObject.SetActive(false);
     }

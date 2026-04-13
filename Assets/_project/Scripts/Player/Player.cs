@@ -5,6 +5,7 @@ public class Player : MonoBehaviour
     [SerializeField] private float _flashDuration = 0.4f;
     
     [HideInInspector] public Health Health;
+    [HideInInspector] public WeaponUser WeaponUser;
 
     private Material _material;
     private float _hitAmount = 0f;
@@ -14,6 +15,7 @@ public class Player : MonoBehaviour
     private void Awake()
     {
         Health = GetComponent<Health>();
+        WeaponUser = GetComponent<WeaponUser>();
     }
     
     private void Start()

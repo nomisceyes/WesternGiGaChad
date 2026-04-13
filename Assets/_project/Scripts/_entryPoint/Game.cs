@@ -1,3 +1,4 @@
+using System.Linq;
 using Cysharp.Threading.Tasks;
 using UnityEngine;
 
@@ -34,9 +35,24 @@ public class Game : MonoBehaviour
         PanelHandler = FindFirstObjectByType<PanelHandler>();
         PopupSpawner = FindFirstObjectByType<PopupSpawner>();
 
+        InitUIElements();
+
         Global.AudioManager.PlayMusic(Res.Audio.BackgroundMusic);
         
-        EnemySpawner.SpawnEnemy();
+        StartWave();
+    }
+    
+    private void InitUIElements()
+    {
+        var allUI = FindObjectsOfType<MonoBehaviour>()
+            .Where(component => component is IUIElement)
+            .Cast<IUIElement>()
+            .ToArray();
+
+        foreach (var uiElement in allUI)
+        {
+            uiElement.Init();
+        }
     }
 
     private void Update()
@@ -54,12 +70,18 @@ public class Game : MonoBehaviour
 
         _ = ActiveNextWave();
     }
+
+    private void StartWave()
+    {
+        //_isProcessingWave = true;
+        EnemySpawner.SpawnEnemy();
+    }
     
     private async UniTask ActiveNextWave()
     {
         if (_isProcessingWave) return;
         
-        if (EnemySpawner.CurrentEnemies == EnemySpawner.MaxAmountEnemy && EnemySpawner.Enemies.Count == 0)
+        if (EnemySpawner.Enemies.Count == 0)
         {
             _isProcessingWave = true;
             _currentWave++;

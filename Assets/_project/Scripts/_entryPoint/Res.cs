@@ -9,11 +9,12 @@ public static class Res
         public static AudioClip RifleReload;
     }
 
-    // public static class VFX
-    // {
-    //     public static ParticleSystem ShootVFX;
-    //     public static ParticleSystem HitVFX;
-    // }
+    public static class VFX
+    {
+        public static ParticleSystem RifleShootVFX;
+        public static ParticleSystem HitVFX;
+        public static ParticleSystem GhostDeathVFX;
+    }
 
     public static void InitAudio()
     {
@@ -22,9 +23,10 @@ public static class Res
         Audio.RifleReload = Resources.Load<AudioClip>("Audio/Rifle_Reload");
     }
 
-    // public static void InitVFX()
-    // {
-    //     VFX.ShootVFX = Resources.Load<ParticleSystem>("VFX/Shoot");
-    //     VFX.HitVFX = Resources.Load<ParticleSystem>("VFX/Hit");
-    // }
+    public static void InitVFX()
+    {
+        VFX.RifleShootVFX = Resources.Load<ParticleSystem>("VFX/Shoot");
+        VFX.HitVFX = Resources.Load<ParticleSystem>("VFX/Hit");
+        VFX.GhostDeathVFX = Resources.Load<ParticleSystem>("VFX/EtherealHit");
+    }
 }

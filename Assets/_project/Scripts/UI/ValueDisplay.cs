@@ -1,16 +1,20 @@
 ﻿using TMPro;
 using UnityEngine;
 
-public abstract class ValueDisplay<T> : MonoBehaviour where T : MonoBehaviour
+public abstract class ValueDisplay<T> : MonoBehaviour, IUIElement where T : MonoBehaviour
 {
-    [SerializeField] protected TextMeshProUGUI _text;
+    [SerializeField] private TextMeshProUGUI _text;
 
     protected abstract T EventSource { get; }
     protected abstract void Subscribe(T source);
     protected abstract void Unsubscribe(T source);
 
-    protected virtual void OnEnable() =>
+    public void Init()
+    {
         Subscribe(EventSource);
+        
+        Debug.Log(gameObject.name + " init");
+    }
 
     protected virtual void OnDisable() =>
         Unsubscribe(EventSource);
