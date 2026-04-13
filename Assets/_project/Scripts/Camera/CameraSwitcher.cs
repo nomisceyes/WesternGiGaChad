@@ -12,19 +12,19 @@ public class CameraSwitcher : MonoBehaviour
     [SerializeField] private CinemachineCamera _aimCamera;
     [SerializeField] private CinemachineInputAxisController _inputAxisController;
     [SerializeField] private CrosshairController _crosshairController;
-    
+
     private CinemachineOrbitalFollow _orbitalFollow;
     private AimCameraController _aimCameraController;
 
     private float _aimRigWeight;
     private bool _isAiming = false;
-    
+
     private void Start()
     {
         _aimCameraController = _aimCamera.GetComponent<AimCameraController>();
         _inputAxisController = _freelookCamera.GetComponent<CinemachineInputAxisController>();
         _orbitalFollow = _freelookCamera.GetComponent<CinemachineOrbitalFollow>();
-        
+
         _aimRig.weight = 0f;
     }
 
@@ -53,7 +53,7 @@ public class CameraSwitcher : MonoBehaviour
         _inputAxisController.enabled = false;
         _crosshairController.EnableCrosshair();
 
-        
+
         _aimRig.weight = 1f;
     }
 
@@ -62,7 +62,7 @@ public class CameraSwitcher : MonoBehaviour
         _isAiming = false;
 
         SnapFreeLookBehindPlayer();
-
+        
         _aimCamera.Priority = MinCameraPriority;
         _freelookCamera.Priority = MaxCameraPriority;
 
@@ -71,7 +71,7 @@ public class CameraSwitcher : MonoBehaviour
 
         _aimRig.weight = 0f;
     }
-
+    
     private void SnapFreeLookBehindPlayer()
     {
         Vector3 forward = _aimCamera.transform.forward;

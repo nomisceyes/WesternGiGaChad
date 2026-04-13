@@ -45,8 +45,11 @@ public class Enemy : MonoBehaviour, IObject<Enemy>
     public void SetStartPosition(Vector3 position) =>
         _mover.Warp(position);
 
-    public void TakeDamage(int damage) =>
+    public void TakeDamage(int damage)
+    {
         Health.TakeDamage(_popupPoint, damage);
+        Global.VFX.HitVFX.Play();
+    }
 
     public void Reset()
     {
@@ -62,15 +65,14 @@ public class Enemy : MonoBehaviour, IObject<Enemy>
         _mover.enabled = false;
         enabled = false;
 
-        _deathRotate.Trigger(gameObject);
-       
-        await UniTask.Delay(500);
+        await _deathRotate.TriggerAsync(gameObject);
+        
+        Died?.Invoke(this);
+        Released?.Invoke(this);
     }
 
     protected virtual void Die()
     {
-        Died?.Invoke(this);
         _ = TimeBeforeDie();
-        Released?.Invoke(this);
     }
 }

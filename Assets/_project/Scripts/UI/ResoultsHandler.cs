@@ -29,17 +29,13 @@ public class ResoultsHandler : MonoBehaviour
         try
         {
             _victoryText.gameObject.SetActive(true);
-
             await UniTask.Delay(3000, cancellationToken: token);
-
             _victoryText.gameObject.SetActive(false);
 
             await UniTask.Delay(1000, cancellationToken: token);
 
             _prepareText.gameObject.SetActive(true);
-
             await UniTask.Delay(1000, cancellationToken: token);
-
             _prepareText.gameObject.SetActive(false);
 
             await UniTask.Delay(500, cancellationToken: token);

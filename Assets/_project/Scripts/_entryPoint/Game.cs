@@ -14,7 +14,7 @@ public class Game : MonoBehaviour
     [SerializeField] private int _maxWaveAmount;
 
     public bool IsPlaying = true;
-    
+
     private int _currentWave;
     private bool _isProcessingWave;
 
@@ -38,10 +38,10 @@ public class Game : MonoBehaviour
         InitUIElements();
 
         Global.AudioManager.PlayMusic(Res.Audio.BackgroundMusic);
-        
+
         StartWave();
     }
-    
+
     private void InitUIElements()
     {
         var allUI = FindObjectsOfType<MonoBehaviour>()
@@ -68,19 +68,22 @@ public class Game : MonoBehaviour
             IsPlaying = true;
         }
 
-        _ = ActiveNextWave();
+        if (IsPlaying)
+        {
+            _ = ActiveNextWave();
+            _ = ActiveBossState();
+        }
     }
 
     private void StartWave()
     {
-        //_isProcessingWave = true;
         EnemySpawner.SpawnEnemy();
     }
-    
+
     private async UniTask ActiveNextWave()
     {
         if (_isProcessingWave) return;
-        
+
         if (EnemySpawner.Enemies.Count == 0)
         {
             _isProcessingWave = true;
@@ -105,6 +108,7 @@ public class Game : MonoBehaviour
             _isProcessingWave = true;
             await ResoultsHandler.PrepareToBossFight();
 
+            await UniTask.Delay(2000, cancellationToken: this.GetCancellationTokenOnDestroy());
             BossSpawner.CreateBoss();
 
             _isProcessingWave = false;

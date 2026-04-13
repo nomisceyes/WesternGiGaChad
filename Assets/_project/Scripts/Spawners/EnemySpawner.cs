@@ -6,7 +6,6 @@ using Random = UnityEngine.Random;
 public class EnemySpawner : Spawner<Enemy>
 {
     public List<Enemy> Enemies = new List<Enemy>();
-    public int CurrentEnemies = 0;
     public int MaxAmountEnemy;
 
     [SerializeField] private List<BoxCollider> _spawnAreas;
@@ -18,15 +17,11 @@ public class EnemySpawner : Spawner<Enemy>
         for (int i = 0; i < MaxAmountEnemy; i++)
         {
             Enemy enemy = Pool.Get();
-            enemy.Reset();
+        
             enemy.SetStartPosition(GetRandomPointInCollider());
             enemy.Health.Popup += Global.Main.PopupSpawner.Create;
-            enemy.Health.Reset();
-
-            Enemies.Add(enemy);
-            CurrentEnemies++;
-
             enemy.Died += RemoveEnemy;
+            Enemies.Add(enemy);
 
             ScoreChanged?.Invoke(Enemies.Count, MaxAmountEnemy);
         }
@@ -34,10 +29,11 @@ public class EnemySpawner : Spawner<Enemy>
 
     private void RemoveEnemy(Enemy enemy)
     {
-        CurrentEnemies--;
-        Enemies.Remove(enemy);
+        enemy.Reset();
+        enemy.Health.Reset();
         enemy.Health.Popup -= Global.Main.PopupSpawner.Create;
         enemy.Died -= RemoveEnemy;
+        Enemies.Remove(enemy);
 
         ScoreChanged?.Invoke(Enemies.Count, MaxAmountEnemy);
     }

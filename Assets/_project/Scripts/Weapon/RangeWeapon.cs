@@ -9,7 +9,6 @@ public class RangeWeapon : Weapon
     private const int MinAmountAmmo = 0;
 
     [SerializeField] private Transform _shootPosition;
-    [SerializeField] private ParticleSystem _hitImpactVFX;
     [SerializeField] private CinemachineCamera _aimCamera;
     [SerializeField] private int _maxShootDistance = 300;
     [SerializeField] private float _timeBetweenShoot = 0.3f;
@@ -33,10 +32,14 @@ public class RangeWeapon : Weapon
         _reloadDelayTime = new WaitForSeconds(_reloadTime);
     }
 
+    private void OnDisable() =>
+        StopAllCoroutines();
+
     public void Shooting()
     {
         if (CurrentAmmo > MinAmountAmmo && _isReloading == false && _shootDelay == false)
         {
+            _shootDelay = true;
             StartCoroutine(Shoot());
         }
     }
@@ -51,13 +54,9 @@ public class RangeWeapon : Weapon
 
     private IEnumerator Shoot()
     {
-        _shootDelay = true;
-
-        Global.AudioManager.PlaySound(Res.Audio.RifleShoot, 0.5f);
+        Global.AudioManager.PlaySound(Res.Audio.RifleShootSound, 0.5f);
         Global.VFX.RifleShootVFX.transform.position = _shootPosition.position;
         Global.VFX.RifleShootVFX.Play();
-        //Res.VFX.ShootVFX.Play();
-        //_shootVFX.Play();
 
         CurrentAmmo--;
         AmmoChanged?.Invoke(CurrentAmmo, MaxAmmo);
@@ -71,8 +70,6 @@ public class RangeWeapon : Weapon
 
                 enemy.TakeDamage(damage);
             }
-
-            //HitEffect(Res.VFX.HitVFX,hit.point, hit.normal);
         }
 
         yield return _shootDelayTime;
@@ -83,7 +80,7 @@ public class RangeWeapon : Weapon
     private IEnumerator Reload()
     {
         _isReloading = true;
-        Global.AudioManager.PlaySound(Res.Audio.RifleReload);
+        Global.AudioManager.PlaySound(Res.Audio.RifleReloadSound);
 
         yield return _reloadDelayTime;
 

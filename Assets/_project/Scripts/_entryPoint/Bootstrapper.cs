@@ -14,24 +14,26 @@ public class VFXManager : MonoBehaviour, IService
 {
     public ParticleSystem GhostDeathVFX;
     public ParticleSystem RifleShootVFX;
+    public ParticleSystem HitVFX;
     
     public void Init()
     {
         GhostDeathVFX =  Instantiate(Res.VFX.GhostDeathVFX);
         RifleShootVFX = Instantiate(Res.VFX.RifleShootVFX);
+        HitVFX = Instantiate(Res.VFX.HitVFX);
     }
 }
 
 [DefaultExecutionOrder(-9999)]
 public static class Bootstrapper
 {
-    private static bool _isInitialized = false;
+    //private static bool _isInitialized = false;
     private static GameObject _serviceHolder;
 
     [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.BeforeSceneLoad)]
     private static void OnBeforeSceneLoad()
     {
-        if (_isInitialized) return;
+        //if (_isInitialized) return;
 
         DOTween.Init();
         Res.InitAudio();
