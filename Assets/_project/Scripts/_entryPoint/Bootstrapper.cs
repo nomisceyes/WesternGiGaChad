@@ -35,7 +35,7 @@ public static class Bootstrapper
     {
         //if (_isInitialized) return;
 
-        DOTween.Init();
+        //DOTween.Init();
         Res.InitAudio();
         Res.InitVFX();
         

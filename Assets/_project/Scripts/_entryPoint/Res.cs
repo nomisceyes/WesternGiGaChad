@@ -5,8 +5,10 @@ public static class Res
     public static class Audio
     {
         public static AudioClip BackgroundMusic;
+        public static AudioClip MainMenuMusic;
         public static AudioClip RifleShootSound;
         public static AudioClip RifleReloadSound;
+        public static AudioClip MouseClickSound;
     }
 
     public static class VFX
@@ -18,9 +20,11 @@ public static class Res
 
     public static void InitAudio()
     {
-        Audio.BackgroundMusic = Resources.Load<AudioClip>("Audio/Background");
-        Audio.RifleShootSound = Resources.Load<AudioClip>("Audio/Rifle_Shoot");
-        Audio.RifleReloadSound = Resources.Load<AudioClip>("Audio/Rifle_Reload");
+        Audio.BackgroundMusic = Resources.Load<AudioClip>("Audio/Music/Background");
+        Audio.MainMenuMusic = Resources.Load<AudioClip>("Audio/Music/MainMenu");
+        Audio.RifleShootSound = Resources.Load<AudioClip>("Audio/SFX/Rifle_Shoot");
+        Audio.RifleReloadSound = Resources.Load<AudioClip>("Audio/SFX/Rifle_Reload");
+        Audio.MouseClickSound = Resources.Load<AudioClip>("Audio/SFX/Click");
     }
 
     public static void InitVFX()

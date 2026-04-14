@@ -1,3 +1,6 @@
 using UnityEngine;
 
-public class Panel : MonoBehaviour {}
+public abstract class Panel : MonoBehaviour
+{
+    public abstract void HideAnimation();
+}

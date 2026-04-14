@@ -33,7 +33,7 @@ public class PanelHandler : MonoBehaviour
         {
             foreach (Panel p in _panels)
             {
-                p.gameObject.SetActive(false);
+                p.HideAnimation();
             }
         }
     }

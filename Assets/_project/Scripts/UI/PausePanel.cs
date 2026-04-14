@@ -6,4 +6,9 @@ public class PausePanel : Panel
     {
         Time.timeScale = @is ? 0 : 1;
     }
+
+    public override void HideAnimation()
+    {
+        
+    }
 }
