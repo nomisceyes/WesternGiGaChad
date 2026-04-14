@@ -2,7 +2,7 @@ using UnityEngine;
 
 public class Click : MonoBehaviour
 {
-    private void OnMouseDown()
+    public void pu()
     {
         Global.AudioManager.PlaySound(Res.Audio.MouseClickSound);
     }

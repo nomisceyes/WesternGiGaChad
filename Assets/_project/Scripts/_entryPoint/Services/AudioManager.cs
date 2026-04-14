@@ -15,7 +15,6 @@ public class AudioManager : MonoBehaviour, IService
     {
         GameObject mSource = new GameObject("MusicSource") { transform = { parent = transform } };
         _musicSource = mSource.AddComponent<AudioSource>();
-        _musicSource.outputAudioMixerGroup = Resources.Load<AudioMixer>("Audio/SettingsMixer").FindMatchingGroups("Master")[0];
         _musicSource.loop = true;
 
         GameObject sSource = new GameObject("SoundSource") { transform = { parent = transform } };
