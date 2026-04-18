@@ -20,7 +20,7 @@ public class Health : MonoBehaviour
     private void Start() =>
         ValueChanged?.Invoke();
 
-    public void TakeDamage(Transform popupPoint, int damage)
+    public void TakeDamage(int damage)
     {
         if (damage >= 0)
         {
@@ -33,7 +33,7 @@ public class Health : MonoBehaviour
             Died?.Invoke();
         }
 
-        Popup?.Invoke(popupPoint, damage);
+        //Popup?.Invoke(popupPoint, damage);
         ValueChanged?.Invoke();
     }
 

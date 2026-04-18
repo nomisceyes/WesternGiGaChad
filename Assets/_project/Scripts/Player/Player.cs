@@ -46,6 +46,6 @@ public class Player : MonoBehaviour
         _hitAmount = 1f;
         _material.SetFloat(_hitAmountProperty, _hitAmount);
         
-        Health.TakeDamage(null, damage);
+        Health.TakeDamage(damage);
     }
 }

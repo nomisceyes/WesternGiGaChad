@@ -5,14 +5,13 @@ using UnityEngine;
 public class Enemy : MonoBehaviour, IObject<Enemy>
 {
     [SerializeField] protected Transform _popupPoint;
+    [SerializeField] private Popup _popup;
     private EnemyMover _mover;
 
     public event Action<Enemy> Released;
     public event Action<Enemy> Died;
 
     private DeathRotate _deathRotate;
-
-    bool can = false;
 
     public Health Health { get; private set; }
 
@@ -47,7 +46,9 @@ public class Enemy : MonoBehaviour, IObject<Enemy>
 
     public void TakeDamage(int damage)
     {
-        Health.TakeDamage(_popupPoint, damage);
+        Health.TakeDamage(damage);
+        _popup.Show(damage);
+        
         Global.VFX.HitVFX.Play();
     }
 
@@ -56,7 +57,6 @@ public class Enemy : MonoBehaviour, IObject<Enemy>
         _mover._agent.enabled = true;
         _mover.enabled = true;
         enabled = true;
-        can = false;
     }
 
     private async UniTask TimeBeforeDie()
@@ -64,6 +64,7 @@ public class Enemy : MonoBehaviour, IObject<Enemy>
         _mover._agent.enabled = false;
         _mover.enabled = false;
         enabled = false;
+        _popup.Hide();
 
         await _deathRotate.TriggerAsync(gameObject);
         
