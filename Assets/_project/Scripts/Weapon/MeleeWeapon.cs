@@ -1,16 +1,16 @@
+using System.Collections;
 using UnityEngine;
 
-public class MeleeWeapon : MonoBehaviour
+public class MeleeWeapon : Weapon
 {
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Start()
+    public CapsuleCollider AttackCollider;
+
+    private void Awake()
     {
-        
+        AttackCollider = GetComponent<CapsuleCollider>();
+        AttackCollider.isTrigger = true;
+        AttackCollider.enabled = false;
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
+    
 }

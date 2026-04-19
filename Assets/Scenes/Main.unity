@@ -32079,6 +32079,10 @@ PrefabInstance:
       propertyPath: m_AnchorMax.y
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 5868739302091492005, guid: c3fa34bd6d368224ba21f1ce8006a477, type: 3}
+      propertyPath: Gun
+      value: 
+      objectReference: {fileID: 1454220237}
     - target: {fileID: 6069924538705800962, guid: c3fa34bd6d368224ba21f1ce8006a477, type: 3}
       propertyPath: _gun
       value: 

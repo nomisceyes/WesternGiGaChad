@@ -66,7 +66,7 @@ public class RangeWeapon : Weapon
         {
             if (hit.collider.TryGetComponent(out Enemy enemy))
             {
-                int damage = Random.Range(minDamage, maxDamage + 1);
+                int damage = Random.Range(MinDamage, MaxDamage + 1);
 
                 enemy.TakeDamage(damage);
             }

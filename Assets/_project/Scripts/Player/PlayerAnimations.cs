@@ -1,3 +1,4 @@
+using DG.Tweening;
 using UnityEngine;
 
 public class PlayerAnimations : MonoBehaviour
@@ -7,6 +8,8 @@ public class PlayerAnimations : MonoBehaviour
     private readonly int _verticalSpeed = Animator.StringToHash("VerticalSpeed");
     private readonly int _aiming = Animator.StringToHash("Aiming");
     private readonly int _shooting = Animator.StringToHash("Shoot");
+    private readonly int _isMelee = Animator.StringToHash("IsMelee");
+    private readonly int _swordAttack = Animator.StringToHash("SwordAttack");
 
     [SerializeField] private float _smoothTime = 0.1f;
 
@@ -28,6 +31,9 @@ public class PlayerAnimations : MonoBehaviour
         Move();
         Aiming();
         Shooting();
+        SwordAttack();
+
+        EquipWeapon();
     }
 
     private void Move()
@@ -59,5 +65,25 @@ public class PlayerAnimations : MonoBehaviour
     {
         if (Global.InputService.IsShooting())
             _animator.SetTrigger(_shooting);
+    }
+
+    private void SwordAttack()
+    {
+        if (Global.InputService.IsShooting())
+            _animator.SetTrigger(_swordAttack);
+    }
+
+    private void EquipWeapon()
+    {
+        switch (Global.Main.Player.WeaponUser.CurrentWeapon)
+        {
+            case RangeWeapon:
+                _animator.SetBool(_isMelee, false);
+                break;
+
+            case MeleeWeapon:
+                _animator.SetBool(_isMelee, true);
+                break;
+        }
     }
 }
