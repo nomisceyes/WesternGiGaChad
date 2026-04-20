@@ -19,7 +19,6 @@ public class EnemySpawner : Spawner<Enemy>
             Enemy enemy = Pool.Get();
         
             enemy.SetStartPosition(GetRandomPointInCollider());
-            enemy.Health.Popup += Global.Main.PopupSpawner.Create;
             enemy.Died += RemoveEnemy;
             Enemies.Add(enemy);
 
@@ -31,7 +30,6 @@ public class EnemySpawner : Spawner<Enemy>
     {
         enemy.Reset();
         enemy.Health.Reset();
-        enemy.Health.Popup -= Global.Main.PopupSpawner.Create;
         enemy.Died -= RemoveEnemy;
         Enemies.Remove(enemy);
 

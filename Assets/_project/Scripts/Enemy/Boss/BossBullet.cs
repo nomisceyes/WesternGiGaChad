@@ -10,7 +10,6 @@ public class BossBullet : MonoBehaviour
     private readonly Vector3 _endScale = new Vector3(3.5f, 3.5f, 3.5f);
     
     private float _radius;
-    private bool _canAttack = false;
 
     private void Start()
     {

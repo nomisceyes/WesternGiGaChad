@@ -1,3 +1,4 @@
+using System;
 using System.Linq;
 using Cysharp.Threading.Tasks;
 using UnityEngine;
@@ -9,7 +10,6 @@ public class Game : MonoBehaviour
     [HideInInspector] public Player Player;
     [HideInInspector] public ResoultsHandler ResoultsHandler;
     [HideInInspector] public PanelHandler PanelHandler;
-    [HideInInspector] public PopupSpawner PopupSpawner;
 
     [SerializeField] private int _maxWaveAmount;
 
@@ -33,7 +33,6 @@ public class Game : MonoBehaviour
         EnemySpawner = FindFirstObjectByType<EnemySpawner>();
         ResoultsHandler = FindFirstObjectByType<ResoultsHandler>();
         PanelHandler = FindFirstObjectByType<PanelHandler>();
-        PopupSpawner = FindFirstObjectByType<PopupSpawner>();
 
         InitUIElements();
 
@@ -41,12 +40,11 @@ public class Game : MonoBehaviour
 
         StartWave();
     }
-
+    
     private void InitUIElements()
     {
-        var allUI = FindObjectsOfType<MonoBehaviour>()
-            .Where(component => component is IUIElement)
-            .Cast<IUIElement>()
+        var allUI = FindObjectsByType<MonoBehaviour>(FindObjectsSortMode.None)
+            .OfType<IUIElement>()
             .ToArray();
 
         foreach (var uiElement in allUI)

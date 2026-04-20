@@ -6,7 +6,6 @@ public class Health : MonoBehaviour
     private const int MinAmount = 0;
 
     public event Action ValueChanged;
-    public event Action<Transform, int> Popup;
     public event Action Died;
 
     [field: SerializeField] public int MaxHealth { get; private set; }
@@ -33,7 +32,6 @@ public class Health : MonoBehaviour
             Died?.Invoke();
         }
 
-        //Popup?.Invoke(popupPoint, damage);
         ValueChanged?.Invoke();
     }
 

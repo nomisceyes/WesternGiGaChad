@@ -1,3 +1,4 @@
+using Cysharp.Threading.Tasks;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -7,7 +8,7 @@ public class MainMenu : MonoBehaviour
 
     private void Awake()
     {
-        StartButton.onClick.AddListener(StartGame);
+        //StartButton.onClick.AddListener(StartGame);
     }
 
     private void Start()
@@ -15,8 +16,8 @@ public class MainMenu : MonoBehaviour
         Global.AudioManager.PlayMusic(Res.Audio.MainMenuMusic);
     }
 
-    public void StartGame()
+    private async UniTaskVoid StartGame()
     {
-        Global.SceneLoader.Load("Main");
+        await Global.SceneLoader.Load("Main");
     }
 }

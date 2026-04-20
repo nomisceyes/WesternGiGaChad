@@ -11,6 +11,4 @@ public class MeleeWeapon : Weapon
         AttackCollider.isTrigger = true;
         AttackCollider.enabled = false;
     }
-
-    
 }
