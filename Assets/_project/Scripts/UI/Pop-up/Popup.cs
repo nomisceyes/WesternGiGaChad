@@ -33,15 +33,18 @@ public class Popup : MonoBehaviour
         
         _currentAnimation = DOTween.Sequence();
         _body.anchoredPosition = _startPosition;
-        
+
         _currentAnimation.Append(_body.DOAnchorPos(_targetBodyPosition + new Vector3(0, 0.5f, 0), 0.25f))
             .Join(_text.DOFade(1f, 0.2f))
             .Join(_text.transform.DOScale(1.5f, 0.25f))
             .Append(_body.DOAnchorPos(_targetBodyPosition, 0.25f).SetEase(Ease.OutCirc))
             .Join(_text.transform.DOScale(1f, 0.35f))
-            .Append(_text.DOFade(0f, 0.7f));
+            .Append(_text.DOFade(0f, 0.4f));
     }
 
-    public void Hide() =>
+    public void Hide()
+    {
+        _currentAnimation?.Kill();
         gameObject.SetActive(false);
+    }
 }

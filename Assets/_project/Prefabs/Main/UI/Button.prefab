@@ -91,7 +91,6 @@ GameObject:
   - component: {fileID: 1131969368860712212}
   - component: {fileID: 3581066564465131930}
   - component: {fileID: 643593020413805573}
-  - component: {fileID: 8433504243871699825}
   - component: {fileID: 3820618837478495307}
   m_Layer: 5
   m_Name: Button
@@ -203,18 +202,6 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
-        m_TargetAssemblyTypeName: SoundPanel, Assembly-CSharp
-        m_MethodName: OnClick
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
       - m_Target: {fileID: 3820618837478495307}
         m_TargetAssemblyTypeName: Click, Assembly-CSharp
         m_MethodName: pu
@@ -227,18 +214,6 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
---- !u!114 &8433504243871699825
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1286367598675046799}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 354bd9e94c2ed7144bfe0e5d34acd50c, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::Click
 --- !u!114 &3820618837478495307
 MonoBehaviour:
   m_ObjectHideFlags: 0

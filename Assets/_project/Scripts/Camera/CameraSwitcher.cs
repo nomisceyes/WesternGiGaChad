@@ -30,7 +30,7 @@ public class CameraSwitcher : MonoBehaviour
 
     private void Update()
     {
-        switch (Global.InputService.AimPressed)
+        switch (Global.InputService.AimPressed && Global.Main.Player.WeaponUser.IsMelee() == false)
         {
             case true when _isAiming == false:
                 EnterAimMode();

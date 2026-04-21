@@ -4,7 +4,6 @@ using UnityEngine;
 
 public class Enemy : MonoBehaviour, IObject<Enemy>
 {
-    [SerializeField] protected Transform _popupPoint;
     [SerializeField] private Popup _popup;
     private EnemyMover _mover;
 

@@ -57,22 +57,10 @@ public class WeaponUser : MonoBehaviour
         Sword.gameObject.SetActive(true);
         CurrentWeapon = Sword;
     }
-    
-    public void Attack() =>
-        StartCoroutine(SwordAttack());
-    
-    private IEnumerator SwordAttack()
-    {
-        Debug.Log("Attack");
-        Sword.AttackCollider.enabled = true;
 
-        if (Sword.AttackCollider.TryGetComponent(out Enemy enemy))
-        {
-            int damage = Random.Range(Sword.MinDamage, Sword.MaxDamage + 1);
-            enemy.TakeDamage(damage);
-        }
-        
-        yield return new WaitForSeconds(0.5f);
-        Sword.AttackCollider.enabled = false;
-    }
+    public void Attack() =>
+        Sword.Attack();
+
+    public bool IsMelee() =>
+        CurrentWeapon is MeleeWeapon;
 }
