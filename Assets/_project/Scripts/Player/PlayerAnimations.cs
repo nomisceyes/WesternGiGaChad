@@ -69,7 +69,7 @@ public class PlayerAnimations : MonoBehaviour
 
     private void SwordAttack()
     {
-        if (Global.InputService.IsShooting())
+        if (Global.InputService.IsShooting() && Global.Main.Player.WeaponUser.IsMelee())
             _animator.SetTrigger(_swordAttack);
     }
 

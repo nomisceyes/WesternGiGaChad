@@ -8,6 +8,7 @@ public class InputService : MonoBehaviour, IService
     private InputAction _moveAction;
     private InputAction _aimAction;
     private InputAction _shootAction;
+    private InputAction _switchWeaponAction;
     private Vector3 _currentMoveInput;
 
     public bool AimPressed { get; private set; }
@@ -19,6 +20,7 @@ public class InputService : MonoBehaviour, IService
         _moveAction = _playerControls.Gameplay.Move;
         _aimAction = _playerControls.Gameplay.Aim;
         _shootAction = _playerControls.Gameplay.Shoot;
+        _switchWeaponAction = _playerControls.Gameplay.SwitchWeapon;
     }
     
     private void Update()
@@ -41,4 +43,7 @@ public class InputService : MonoBehaviour, IService
 
     public bool CanShoot() =>
         IsAiming() && IsShooting();
+
+    public bool SwitchWeapon() =>
+        _switchWeaponAction.IsPressed();
 }

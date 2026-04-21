@@ -13,37 +13,38 @@ public class WeaponUser : MonoBehaviour
         Gun = GetComponentInChildren<RangeWeapon>();
         Sword = GetComponentInChildren<MeleeWeapon>();
         Sword.gameObject.SetActive(false);
-        
+
         CurrentWeapon = Gun;
     }
 
     private void Update()
     {
-        if (Global.InputService.CanShoot() && Gun.gameObject.activeInHierarchy)
+        if (IsRange())
         {
-            Gun.Shooting();
-        }
-        else
-        {
-            Gun.Reloading();
+            if (Global.InputService.CanShoot())
+            {
+                Gun.Shooting();
+            }
+            else
+            {
+                Gun.Reloading();
+            }
         }
 
-        SwitchWeapon();
+        if (Global.InputService.SwitchWeapon())
+        {
+            SwitchWeapon();
+        }
     }
 
     private void SwitchWeapon()
     {
-        if (Input.GetKeyDown(KeyCode.Q))
-        {
+        if(CurrentWeapon == IsRange())
             EquipSword();
-        }
-
-        if (Input.GetKeyDown(KeyCode.E))
-        {
+        else
             EquipGun();
-        }
     }
-
+    
     private void EquipGun()
     {
         Sword.gameObject.SetActive(false);
@@ -58,9 +59,15 @@ public class WeaponUser : MonoBehaviour
         CurrentWeapon = Sword;
     }
 
-    public void Attack() =>
-        Sword.Attack();
+    public void Attack()
+    {
+        if (IsMelee())
+            Sword.Attack();
+    }
 
     public bool IsMelee() =>
         CurrentWeapon is MeleeWeapon;
+
+    public bool IsRange() =>
+        CurrentWeapon is RangeWeapon;
 }
