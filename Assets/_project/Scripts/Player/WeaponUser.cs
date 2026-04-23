@@ -8,6 +8,10 @@ public class WeaponUser : MonoBehaviour
 
     public Weapon CurrentWeapon { get; private set; }
 
+    private float _attackDelay = 1f;
+    public float CurrentIndexAttack;
+    private float _timer;
+
     private void Awake()
     {
         Gun = GetComponentInChildren<RangeWeapon>();
@@ -30,6 +34,9 @@ public class WeaponUser : MonoBehaviour
                 Gun.Reloading();
             }
         }
+        
+        if(IsMelee())
+            _timer += Time.deltaTime;
 
         if (Global.InputService.SwitchWeapon())
         {
@@ -62,7 +69,20 @@ public class WeaponUser : MonoBehaviour
     public void Attack()
     {
         if (IsMelee())
-            Sword.Attack();
+            TryToAttack();
+    }
+
+    private void TryToAttack()
+    {
+        if (_timer >= _attackDelay)
+        {
+            CurrentIndexAttack++;
+
+            if (CurrentIndexAttack > 2 || _timer > 3)
+                CurrentIndexAttack = 1;
+            
+            _timer = 0f;
+        }
     }
 
     public bool IsMelee() =>

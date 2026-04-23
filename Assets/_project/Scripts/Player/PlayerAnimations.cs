@@ -11,6 +11,8 @@ public class PlayerAnimations : MonoBehaviour
     private readonly int _isMelee = Animator.StringToHash("IsMelee");
     private readonly int _swordAttack = Animator.StringToHash("SwordAttack");
 
+    private string Attack = "SwordAttack";
+
     [SerializeField] private float _smoothTime = 0.1f;
 
     private Animator _animator;
@@ -70,7 +72,7 @@ public class PlayerAnimations : MonoBehaviour
     private void SwordAttack()
     {
         if (Global.InputService.IsShooting() && Global.Main.Player.WeaponUser.IsMelee())
-            _animator.SetTrigger(_swordAttack);
+            _animator.SetTrigger(Attack + Global.Main.Player.WeaponUser.CurrentIndexAttack.ToString("0"));
     }
 
     private void EquipWeapon()
