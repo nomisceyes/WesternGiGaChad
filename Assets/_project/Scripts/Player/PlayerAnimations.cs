@@ -21,6 +21,10 @@ public class PlayerAnimations : MonoBehaviour
     private float _currentHorizontalSpeed;
     private float _currentVerticalSpeed;
     private float _currentSpeed;
+    
+    private float _attackCooldown = 0f;
+    private int _lastAttackIndex = -1;
+    private float _resetTriggerDelay = 0.1f;
 
     private void Awake()
     {
@@ -30,12 +34,15 @@ public class PlayerAnimations : MonoBehaviour
 
     private void Update()
     {
-        Move();
-        Aiming();
-        Shooting();
-        SwordAttack();
+        if (Global.Main.PanelHandler.IsPaused == false)
+        {
+            Move();
+            Aiming();
+            Shooting();
+            SwordAttack();
 
-        EquipWeapon();
+            EquipWeapon();
+        }
     }
 
     private void Move()
@@ -65,14 +72,40 @@ public class PlayerAnimations : MonoBehaviour
 
     private void Shooting()
     {
-        if (Global.InputService.IsShooting())
+        if (Global.InputService.IsShooting() && Global.Main.Player.WeaponUser.IsRange())
             _animator.SetTrigger(_shooting);
     }
 
     private void SwordAttack()
     {
+        if (_attackCooldown > 0)
+        {
+            _attackCooldown -= Time.deltaTime;
+            if (_attackCooldown <= 0 && _lastAttackIndex != -1)
+            {
+                _animator.ResetTrigger(Attack + _lastAttackIndex);
+                _lastAttackIndex = -1;
+            }
+        }
+
         if (Global.InputService.IsShooting() && Global.Main.Player.WeaponUser.IsMelee())
-            _animator.SetTrigger(Attack + Global.Main.Player.WeaponUser.CurrentIndexAttack.ToString("0"));
+        {
+            if (Global.Main.Player.WeaponUser.TryToAttack())
+            {
+                int attackIndex = (int)Global.Main.Player.WeaponUser.CurrentIndexAttack;
+
+                if (_lastAttackIndex != -1)
+                {
+                    _animator.ResetTrigger(Attack + _lastAttackIndex);
+                }
+
+                string triggerName = Attack + attackIndex;
+                _animator.SetTrigger(triggerName);
+
+                _lastAttackIndex = attackIndex;
+                _attackCooldown = _resetTriggerDelay;
+            }
+        }
     }
 
     private void EquipWeapon()

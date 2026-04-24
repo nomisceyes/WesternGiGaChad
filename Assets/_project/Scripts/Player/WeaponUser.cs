@@ -11,6 +11,7 @@ public class WeaponUser : MonoBehaviour
     private float _attackDelay = 1f;
     public float CurrentIndexAttack;
     private float _timer;
+    private bool _canAttack;
 
     private void Awake()
     {
@@ -34,9 +35,13 @@ public class WeaponUser : MonoBehaviour
                 Gun.Reloading();
             }
         }
-        
-        if(IsMelee())
+
+        if (IsMelee())
+        {
             _timer += Time.deltaTime;
+            if (_timer >= _attackDelay)
+                _canAttack = true;
+        }
 
         if (Global.InputService.SwitchWeapon())
         {
@@ -46,12 +51,12 @@ public class WeaponUser : MonoBehaviour
 
     private void SwitchWeapon()
     {
-        if(CurrentWeapon == IsRange())
+        if (CurrentWeapon == IsRange())
             EquipSword();
         else
             EquipGun();
     }
-    
+
     private void EquipGun()
     {
         Sword.gameObject.SetActive(false);
@@ -68,21 +73,25 @@ public class WeaponUser : MonoBehaviour
 
     public void Attack()
     {
+        Debug.Log("Attack");
+
         if (IsMelee())
             TryToAttack();
     }
 
-    private void TryToAttack()
+    public bool TryToAttack()
     {
-        if (_timer >= _attackDelay)
-        {
-            CurrentIndexAttack++;
+        if (IsMelee() == false && _canAttack == false)
+            return false;
 
-            if (CurrentIndexAttack > 2 || _timer > 3)
-                CurrentIndexAttack = 1;
-            
-            _timer = 0f;
-        }
+        CurrentIndexAttack++;
+
+        if (CurrentIndexAttack > 1)
+            CurrentIndexAttack = 0;
+
+        _timer = 0f;
+        _canAttack = true;
+        return true;
     }
 
     public bool IsMelee() =>

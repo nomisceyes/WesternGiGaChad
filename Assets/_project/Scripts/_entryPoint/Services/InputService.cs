@@ -45,5 +45,5 @@ public class InputService : MonoBehaviour, IService
         IsAiming() && IsShooting();
 
     public bool SwitchWeapon() =>
-        _switchWeaponAction.IsPressed();
+        _switchWeaponAction.triggered;
 }

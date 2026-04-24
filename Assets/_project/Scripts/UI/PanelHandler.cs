@@ -6,6 +6,8 @@ public class PanelHandler : MonoBehaviour
 {
     [SerializeField] private List<Panel> _panels;
     [SerializeField] private PausePanel _pausePanel;
+
+    public bool IsPaused => _pausePanel.gameObject.activeSelf;
     
     private void Update()
     {
